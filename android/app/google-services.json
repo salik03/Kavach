@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "42389832044",
+    "project_id": "kavach-82f78",
+    "storage_bucket": "kavach-82f78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42389832044:android:621094b400380ae1697349",
+        "android_client_info": {
+          "package_name": "com.example.kavach_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42389832044-gn2hi3jq34mbt1bt9atom9mp1eep3uum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kavach_2",
+            "certificate_hash": "da0430403900e07b0090edb4720948eb51200bac"
+          }
+        },
+        {
+          "client_id": "42389832044-e4t7a3beebg5phpv08ipcv489q37b06q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpOlFTiqYf9ilV5PtsISsv9jFBSv-bsJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42389832044-e4t7a3beebg5phpv08ipcv489q37b06q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,99 @@
+name: kavach_2
+description: Kavach - Spam Alert App
+
+
+publish_to: 'none'
+
+
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  google_fonts: ^5.1.0
+  flutter_native_splash: ^2.3.1
+  image: ^4.0.17
+  liquid_swipe: ^3.1.0
+  smooth_page_indicator: ^1.1.0
+  flutter_otp_text_field: ^1.1.1
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.7.2
+  pinput: ^2.3.0
+  get: ^4.6.5
+  usage_stats: ^1.2.0
+  installed_apps: ^1.3.1
+  flutter_background_service: ^2.4.6
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  permission_handler: ^10.4.3
+  google_maps_flutter: ^2.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  android: true
+  color: '#f7f6f1'
+  color_dark: '#272727'
+  image: assets/images/splashscreen.png
+  image_dark: assets/images/splashscreen.png
+
+  android_12:
+    image: assets/images/splashscreen.png
+    icon_background_color: "#f7f6f1"
+    image-dark: assets/images/logo.png
+    icon-background-color-dark: "#272727"
+
+
+
+flutter:
+  assets:
+    - assets/images/
+    - assets/images/on_boarding_images/on-boarding-image.png
+    - assets/images/splashscreen.png
+
+
+  uses-material-design: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
