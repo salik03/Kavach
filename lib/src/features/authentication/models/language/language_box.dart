@@ -17,58 +17,59 @@ updatelanguage(Locale locale) {
   Get.updateLocale(locale);
 }
 
-builddialog(BuildContext context) {
+void buildDialog(BuildContext context) {
   showDialog(
-    barrierColor: transparent,
     context: context,
-    builder: (builder) {
-      return AlertDialog(
+    builder: (context) {
+      return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         backgroundColor: dialogueBoxColor,
-        title: Text(
-          'language'.tr,
-          textAlign: TextAlign.center,
-        ),
-        content: Container(
-          width: double.maxFinite,
-          decoration: const BoxDecoration(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => updatelanguage(locale[index]['locale']),
-                    child: Text(
-                      locale[index]['name'],
-                      textAlign: TextAlign.center,
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.maxFinite,
+            decoration: const BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'language'.tr,
+                  textAlign: TextAlign.center,
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => updatelanguage(locale[index]['locale']),
+                      child: Text(
+                        locale[index]['name'],
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: dividerColor,
+                    );
+                  },
+                  itemCount: locale.length,
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: ElevatedButton(
+                    onPressed: () => null,
+                    style: ElevatedButton.styleFrom(
+                      primary: buttonColor,
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    color: dividerColor,
-                  );
-                },
-                itemCount: locale.length,
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 50,
-                width: 250,
-                child: ElevatedButton(
-                  onPressed: () => null,
-                  style: ElevatedButton.styleFrom(
-                    primary: buttonColor,
-                  ),
-                  child: const Text(
-                    'Confirm',
-                    style: TextStyle(color: Colors.white70),
+                    child: const Text(
+                      'Confirm',
+                      style: TextStyle(color: Colors.white70),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

@@ -1,26 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
 import '../../models/language/language_box.dart';
 
 class LanguageScreen extends StatelessWidget {
-  const LanguageScreen({Key? key}) : super(key: key);
+   LanguageScreen({Key? key}) : super(key: key);
 
   static const LinearGradient bgradient = LinearGradient(
-      colors: gradientColors,
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter);
+    colors: gradientColors,
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  final List locale = [
+    {'name': 'English', 'locale': const Locale('en', 'US')},
+    {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
+    {'name': 'ગુજરાતી', 'locale': const Locale('gu', 'IN')},
+    {'name': 'తెలుగు', 'locale': const Locale('te', 'IN')},
+  ];
+
+  void _updateLanguage(BuildContext context, Locale locale) {
+
+    Get.back();
+    Get.updateLocale(locale);
+  }
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      builddialog(context);
-    });
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: bgradient,
+          image: backdrop,
+        ),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              gradient: bgradient,
-              image: backdrop,
-            )));
+              color: dialogueBoxColor,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'language'.tr,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => _updateLanguage(
+                          context, locale[index]['locale'] as Locale),
+                      child: Text(
+                        locale[index]['name'],
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: dividerColor,
+                    );
+                  },
+                  itemCount: locale.length,
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: ElevatedButton(
+                    onPressed: () => PermissionScreen(),
+                    style: ElevatedButton.styleFrom(
+                      primary: buttonColor,
+                    ),
+                    child: const Text(
+                      'Confirm',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -25,7 +25,7 @@ void main() async {
     theme: TAppTheme.lightTheme,
     darkTheme: TAppTheme.darkTheme,
     themeMode: ThemeMode.system,
-    home: LoginScreen(),
+    home: SplashScreen(),
   ));
 }
 
