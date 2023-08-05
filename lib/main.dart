@@ -4,6 +4,7 @@ import 'package:kavach_2/src/constants/language_hardcode.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/registration_screen/registration_screen.dart';
+import 'package:kavach_2/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'firebase_options.dart';
 import 'package:kavach_2/src/features/authentication/screens/login_screen/login_screen.dart';
 import 'package:kavach_2/src/utils/theme/theme.dart';
@@ -33,7 +34,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return RegistrationPage();
+    return const SplashScreen();
   }
 }
-
