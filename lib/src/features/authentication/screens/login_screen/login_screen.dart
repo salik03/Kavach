@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
           decoration: BoxDecoration(
             gradient: bgradient,
-            image: backdrop,
+            // image: backdrop,
           ),
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -154,6 +154,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: BoxDecoration(
                   color: dialogueBoxColor,
                   borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2), // Shadow color with transparency
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
                 ),
                 padding: const EdgeInsets.all(16.0),
                 child: Column(

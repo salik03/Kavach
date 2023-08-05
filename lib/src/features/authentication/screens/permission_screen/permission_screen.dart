@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,52 +6,54 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
-import '../welcome/welcome_screen.dart';
 
-class PermissionScreen extends StatelessWidget {
+class PermissionScreen extends StatefulWidget {
+  const PermissionScreen({Key? key}) : super(key: key);
+
+  @override
+  _PermissionScreenState createState() => _PermissionScreenState();
+}
+
+class _PermissionScreenState extends State<PermissionScreen> {
+  bool allPermissionsGranted = false;
 
   Future<void> _requestLocationPermission() async {
-
     final PermissionStatus status = await Permission.location.request();
-    if (status.isGranted) {
-      // Permission is granted
-      print("Location permission granted!");
-    } else {
-      // Permission is denied or restricted
-      print("Location permission not granted!");
-    }
+    _updateAllPermissionsGranted(status);
   }
 
   Future<void> _requestMessagePermission() async {
     final PermissionStatus status = await Permission.sms.request();
-    if (status.isGranted) {
-      print("Message permission granted!");
-    } else {
-      print("Message permission not granted!");
-    }
+    _updateAllPermissionsGranted(status);
   }
 
   Future<void> _requestCallLogPermission() async {
     final PermissionStatus status = await Permission.phone.request();
-    if (status.isGranted) {
-      print("Call log permission granted!");
-    } else {
-      print("Call log permission not granted!");
-    }
+    _updateAllPermissionsGranted(status);
   }
 
   Future<void> _requestNotificationPermission() async {
     final PermissionStatus status = await Permission.notification.request();
-    if (status.isGranted) {
-      print("Notification permission granted!");
-    } else {
-      print("Notification permission not granted!");
-    }
+    _updateAllPermissionsGranted(status);
   }
 
-  const PermissionScreen({Key? key}) : super(key: key);
+  Future<void> _requestOverlayPermission() async {
+    final PermissionStatus status = await Permission.systemAlertWindow.request();
+    _updateAllPermissionsGranted(status);
+  }
 
+  void _updateAllPermissionsGranted(PermissionStatus status) async {
+    final areAllPermissionsGranted =
+        status.isGranted &&
+            (await Permission.sms.status).isGranted &&
+            (await Permission.phone.status).isGranted &&
+            (await Permission.notification.status).isGranted &&
+            (await Permission.systemAlertWindow.status).isGranted;
 
+    setState(() {
+      allPermissionsGranted = areAllPermissionsGranted;
+    });
+  }
 
   static const LinearGradient bgradient = LinearGradient(
     colors: gradientColors,
@@ -75,7 +76,6 @@ class PermissionScreen extends StatelessWidget {
         body: Container(
           decoration: BoxDecoration(
             gradient: bgradient,
-            image: backdrop,
           ),
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -89,12 +89,18 @@ class PermissionScreen extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
               SizedBox(height: 16),
-              // Rectangle with "App Permissions" heading
               Container(
                 decoration: BoxDecoration(
                   color: dialogueBoxColor,
-
                   borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -114,78 +120,90 @@ class PermissionScreen extends StatelessWidget {
                     ),
                     ListTile(
                       leading: CircleAvatar(
-                        child: Icon(
-                            Icons.location_city
-                        ),
+                        child: Icon(Icons.location_city),
                       ),
                       onTap: () async {
                         await _requestLocationPermission();
                       },
                       title: Text("Device Location"),
-                      subtitle: Text("We need this permission to know single moms around you"),
+                      subtitle:
+                      Text("We need this permission to know single moms around you"),
                       trailing: Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
                       leading: CircleAvatar(
-                        child: Icon(
-                            Icons.notifications
-                        ),
+                        child: Icon(Icons.notifications),
                       ),
                       onTap: () async {
                         await _requestNotificationPermission();
                       },
                       title: Text("Notifications"),
-                      subtitle: Text("We need this permission to tell you about single moms around you"),
+                      subtitle:
+                      Text("We need this permission to tell you about single moms around you"),
                       trailing: Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
                       leading: CircleAvatar(
-                        child: Icon(
-                            Icons.call
-                        ),
+                        child: Icon(Icons.call),
                       ),
                       onTap: () async {
                         await _requestCallLogPermission();
                       },
                       title: Text("Calls"),
-                      subtitle: Text("We need this permission to call single moms around you"),
+                      subtitle:
+                      Text("We need this permission to call single moms around you"),
                       trailing: Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
                       leading: CircleAvatar(
-                        child: Icon(
-                            Icons.message
-                        ),
+                        child: Icon(Icons.message),
                       ),
                       onTap: () async {
                         await _requestMessagePermission();
                       },
                       title: Text("Messages"),
-                      subtitle: Text("We need this permission to alert you about single moms around you"),
+                      subtitle:
+                      Text("We need this permission to message you about single moms around you"),
                       trailing: Icon(Icons.arrow_forward_ios),
                     ),
-                Container(
-                  width: double.infinity, // Make the button width equal to the container's width
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                    }, child: const Text(
-                    'I Agree',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                    style: ElevatedButton.styleFrom(
-                      primary: buttonColor,
+                    ListTile(
+                      leading: CircleAvatar(
+                        child: Icon(Icons.warning),
+                      ),
+                      onTap: () async {
+                        await _requestOverlayPermission();
+                      },
+                      title: Text("Alert"),
+                      subtitle:
+                      Text("We need this permission to alert you about single moms around you"),
+                      trailing: Icon(Icons.arrow_forward_ios),
                     ),
-                  ),
-                ),
+                    Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: allPermissionsGranted
+                            ? () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          );
+                        }
+                            : null,
+                        child: const Text(
+                          'I Agree',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: allPermissionsGranted
+                              ? Colors.white70: buttonColor,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -193,5 +211,3 @@ class PermissionScreen extends StatelessWidget {
     );
   }
 }
-
-
