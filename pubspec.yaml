@@ -16,8 +16,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   cupertino_icons: ^1.0.2
   google_fonts: ^5.1.0
   image: ^4.0.17
