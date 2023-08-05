@@ -2,19 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/colors.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: RegistrationPage(),
-    );
-  }
-}
-
 class RegistrationPage extends StatefulWidget {
   @override
   _RegistrationPageState createState() => _RegistrationPageState();

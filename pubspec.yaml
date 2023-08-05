@@ -36,6 +36,7 @@ dependencies:
   permission_handler: ^10.4.3
   google_maps_flutter: ^2.4.0
   cloud_firestore: ^4.8.4
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
