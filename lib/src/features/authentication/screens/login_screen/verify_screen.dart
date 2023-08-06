@@ -106,7 +106,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: _isConfirmButtonEnabled ? _onConfirmButtonPressed : null,
+                  onPressed: _isConfirmButtonEnabled ? _onConfirmButtonPressed :null,
                   child: Text('Confirm'),
                 ),
                 ElevatedButton(
@@ -129,7 +129,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
         if (value.user != null) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => LanguageScreen()),
+            MaterialPageRoute(builder: (context) => RegistrationPage()),
                 (route) => false,
           );
         }
