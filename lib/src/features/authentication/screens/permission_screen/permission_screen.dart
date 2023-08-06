@@ -197,7 +197,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                         ),
                         style: ElevatedButton.styleFrom(
                           primary: allPermissionsGranted
-                              ? Colors.white70: buttonColor,
+                              ? Color(0xFF1D4D4F): Colors.white70,
                         ),
                       ),
                     ),
