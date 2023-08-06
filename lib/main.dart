@@ -12,7 +12,6 @@ import 'package:kavach_2/src/features/authentication/screens/login_screen/login_
 import 'package:kavach_2/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -25,7 +24,7 @@ void main() async {
     theme: TAppTheme.lightTheme,
     darkTheme: TAppTheme.darkTheme,
     themeMode: ThemeMode.system,
-    home: SplashScreen(),
+    home: LoginScreen(),
   ));
 }
 
