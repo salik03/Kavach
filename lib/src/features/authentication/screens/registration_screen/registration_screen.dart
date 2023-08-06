@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 
 import '../../../../constants/colors.dart';
 
@@ -26,6 +27,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void _createAccount() {
+
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
 
   }
 

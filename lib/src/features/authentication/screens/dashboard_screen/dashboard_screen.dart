@@ -3,6 +3,7 @@ import 'package:kavach_2/src/constants/colors.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
+import '../extraction/sms_extract.dart';
 import '../language/language_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -13,35 +14,15 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreen extends State<DashboardScreen> {
-  // static const LinearGradient bgradient = LinearGradient(
-  //   colors: gradientColors,
-  //   begin: Alignment.topCenter,
-  //   end: Alignment.bottomCenter,
-  // );
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Calls',
-      style: optionStyle,
-    ),
-    Text(
-      'Messages',
-      style: optionStyle,
-    ),
-    Text(
-      'Mails',
-      style: optionStyle,
-    ),
-    Center(
-      child: Icon(MyFlutterIcon.robot, size: 100.0),
-    ),
+    DashboardScreen(), // Home Placeholder
+    SMSScreen(), // Calls Placeholder
+    Placeholder(), // Messages Placeholder
+    Placeholder(), // Mails Placeholder
+    Placeholder(), // Nischal Placeholder
   ];
 
   void _onItemTapped(int index) {
@@ -63,6 +44,7 @@ class _DashboardScreen extends State<DashboardScreen> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
+            // Handle menu icon tap here
           },
           child: Icon(Icons.menu),
         ),

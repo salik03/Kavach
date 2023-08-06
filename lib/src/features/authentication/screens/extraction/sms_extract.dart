@@ -1,20 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:http/http.dart' as http;
 
 class SMSScreen extends StatefulWidget {
   const SMSScreen({Key? key}) : super(key: key);
 
   @override
-  State<SMSScreen> createState() => _SMSScreen();
+  State<SMSScreen> createState() => _MyAppState();
 }
 
-class _SMSScreen extends State<SMSScreen> {
+class _MyAppState extends State<SMSScreen> {
   final SmsQuery _query = SmsQuery();
   List<SmsMessage> _messages = [];
-  double _numericalValue = 0.0;
 
   @override
   void initState() {
@@ -24,7 +21,13 @@ class _SMSScreen extends State<SMSScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SMS Inbox ',
+      title: 'Flutter SMS Inbox App',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        textTheme: TextTheme(
+          headline6: TextStyle(fontSize: 16.0), // Adjust the font size as needed
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('SMS Inbox Example'),
@@ -37,7 +40,7 @@ class _SMSScreen extends State<SMSScreen> {
           )
               : Center(
             child: Text(
-              'No messages to show.\n Tap refresh button...',
+              'No messages to show.\nTap the refresh button...',
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             ),
@@ -56,12 +59,7 @@ class _SMSScreen extends State<SMSScreen> {
               );
               debugPrint('sms inbox messages: ${messages.length}');
 
-              double numericalValue = await sendMessagesToAPI(messages);
-
-              setState(() {
-                _messages = messages;
-                _numericalValue = numericalValue;
-              });
+              setState(() => _messages = messages);
             } else {
               await Permission.sms.request();
             }
@@ -70,46 +68,6 @@ class _SMSScreen extends State<SMSScreen> {
         ),
       ),
     );
-  }
-
-  Future<double> sendMessagesToAPI(List<SmsMessage> messages) async {
-    List<Map<String, String>> messageList = [];
-    for (var message in messages) {
-      String date = '';
-      if (message.date != null) {
-        date = message.date!.toIso8601String();
-      }
-
-      String sender = '';
-      if (message.sender != null) {
-        sender = message.sender!;
-      }
-
-      String body = '';
-      if (message.sender != null) {
-        sender = message.sender!;
-      }
-
-      messageList.add({
-        'sender': sender,
-        'date': date,
-        'body': body,
-      });
-    }
-
-
-    final response = await http.post(
-      Uri.parse('mann dharmesh acharya url'),
-      body: {'messages': messageList.toString()},
-    );
-
-
-    if (response.statusCode == 200) {
-      final numericalValue = double.parse(response.body);
-      return numericalValue;
-    } else {
-      throw Exception('Failed bhai');
-    }
   }
 }
 
@@ -129,9 +87,14 @@ class _MessagesListView extends StatelessWidget {
       itemBuilder: (BuildContext context, int i) {
         var message = messages[i];
 
-        return ListTile(
+        return ExpansionTile(
           title: Text('${message.sender} [${message.date}]'),
-          subtitle: Text('${message.body}'),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('${message.body}'),
+            ),
+          ],
         );
       },
     );

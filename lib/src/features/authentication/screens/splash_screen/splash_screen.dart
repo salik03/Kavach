@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:kavach_2/src/features/authentication/screens/language/language_screen.dart";
 import "package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart";
 import "../../../../constants/image_strings.dart";
 
@@ -37,6 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() => opacity = 1.0);
     await Future.delayed(Duration(milliseconds: 5000));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PermissionScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LanguageScreen()));
   }
 }
