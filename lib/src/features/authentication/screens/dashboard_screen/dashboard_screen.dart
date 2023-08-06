@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kavach_2/src/constants/colors.dart';
+import 'package:flutter/services.dart';
+
+import '../../models/icons.dart';
 
 
 
@@ -10,8 +14,13 @@ class DashboardScreen extends StatefulWidget {
       _DashboardScreen();
 }
 
-class _DashboardScreen
-    extends State<DashboardScreen> {
+class _DashboardScreen extends State<DashboardScreen> {
+  static const LinearGradient bgradient = LinearGradient(
+    colors: gradientColors,
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -47,44 +56,46 @@ class _DashboardScreen
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('Navbar'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: bgradient,
+        ),
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.call),
+            label: 'Calls',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.message_rounded),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail),
+            label: 'Mails',
           ),
           // Add a BottomNavigationBarItem for your custom widget (index 3)
           BottomNavigationBarItem(
             icon: Icon(MyFlutterIcon.robot),
-            label: 'Nischal',
+            label: 'AI ChatBot',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: primaryColor,
         onTap: _onItemTapped,
       ),
     );
   }
-}
 
-class MyFlutterIcon {
-  MyFlutterIcon._();
-
-  static const _kFontFam = 'assets/icons/abot.ttf';
-  static const String? _kFontPkg = null;
-
-  static const IconData robot = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

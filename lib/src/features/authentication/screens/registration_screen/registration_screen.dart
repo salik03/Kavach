@@ -26,8 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void _createAccount() {
-    // Implement your account creation logic here
-    // This method will be called when the "Create an Account" button is pressed.
+
   }
 
   @override
