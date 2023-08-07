@@ -3,24 +3,30 @@ import 'package:kavach_2/src/constants/colors.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
+import '../extraction/call_logs.dart';
 import '../extraction/sms_extract.dart';
+import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
+
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreen();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreen extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
+
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    DashboardScreen(), // Home Placeholder
-    SMSScreen(), // Calls Placeholder
-    Placeholder(), // Messages Placeholder
+
+  // Add the SMSScreen widget to the list of widget options
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(), // Home Placeholder
+    CallLogViewerScreen(),
+    SMSScreen(),
     Placeholder(), // Mails Placeholder
     Placeholder(), // Nischal Placeholder
   ];

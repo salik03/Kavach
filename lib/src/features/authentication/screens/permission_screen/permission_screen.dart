@@ -15,45 +15,53 @@ class PermissionScreen extends StatefulWidget {
 }
 
 class _PermissionScreenState extends State<PermissionScreen> {
-  bool allPermissionsGranted = false;
+  bool locationPermissionGranted = false;
+  bool notificationPermissionGranted = false;
+  bool callLogPermissionGranted = false;
+  bool messagePermissionGranted = false;
+  bool overlayPermissionGranted = false;
 
   Future<void> _requestLocationPermission() async {
     final PermissionStatus status = await Permission.location.request();
-    _updateAllPermissionsGranted(status);
+    setState(() {
+      locationPermissionGranted = status.isGranted;
+    });
   }
 
   Future<void> _requestMessagePermission() async {
     final PermissionStatus status = await Permission.sms.request();
-    _updateAllPermissionsGranted(status);
+    setState(() {
+      messagePermissionGranted = status.isGranted;
+    });
   }
 
   Future<void> _requestCallLogPermission() async {
     final PermissionStatus status = await Permission.phone.request();
-    _updateAllPermissionsGranted(status);
+    setState(() {
+      callLogPermissionGranted = status.isGranted;
+    });
   }
 
   Future<void> _requestNotificationPermission() async {
     final PermissionStatus status = await Permission.notification.request();
-    _updateAllPermissionsGranted(status);
+    setState(() {
+      notificationPermissionGranted = status.isGranted;
+    });
   }
 
   Future<void> _requestOverlayPermission() async {
     final PermissionStatus status = await Permission.systemAlertWindow.request();
-    _updateAllPermissionsGranted(status);
-  }
-
-  void _updateAllPermissionsGranted(PermissionStatus status) async {
-    final areAllPermissionsGranted =
-        status.isGranted &&
-            (await Permission.sms.status).isGranted &&
-            (await Permission.phone.status).isGranted &&
-            (await Permission.notification.status).isGranted &&
-            (await Permission.systemAlertWindow.status).isGranted;
-
     setState(() {
-      allPermissionsGranted = areAllPermissionsGranted;
+      overlayPermissionGranted = status.isGranted;
     });
   }
+
+  bool get allPermissionsGranted =>
+      locationPermissionGranted &&
+          notificationPermissionGranted &&
+          callLogPermissionGranted &&
+          messagePermissionGranted &&
+          overlayPermissionGranted;
 
   static const LinearGradient bgradient = LinearGradient(
     colors: gradientColors,
@@ -78,8 +86,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
             gradient: bgradient,
           ),
           padding: const EdgeInsets.all(16.0),
-          child: 
-          SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,10 +135,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           await _requestLocationPermission();
                         },
                         title: Text("Device Location"),
-                        subtitle:
-                        Text("We need this permission to find and connect you with people nearby, providing location-based services."),
+                        subtitle: Text(
+                            "We need this permission to find and connect you with people nearby, providing location-based services."),
                         trailing: Checkbox(
-                          value: allPermissionsGranted, // Replace this with the actual location permission status
+                          value: locationPermissionGranted,
                           onChanged: (value) {
                             // Handle checkbox state change if needed
                           },
@@ -146,10 +153,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           await _requestNotificationPermission();
                         },
                         title: Text("Notifications"),
-                        subtitle:
-                        Text("We need this permission to send you important notifications and updates about your account and potential matches."),
+                        subtitle: Text(
+                            "We need this permission to send you important notifications and updates about your account and potential matches."),
                         trailing: Checkbox(
-                          value: allPermissionsGranted, // Replace this with the actual notification permission status
+                          value: notificationPermissionGranted,
                           onChanged: (value) {
                             // Handle checkbox state change if needed
                           },
@@ -164,10 +171,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           await _requestCallLogPermission();
                         },
                         title: Text("Calls"),
-                        subtitle:
-                        Text("We need this permission to enable voice calling with other users, enhancing your communication experience."),
+                        subtitle: Text(
+                            "We need this permission to enable voice calling with other users, enhancing your communication experience."),
                         trailing: Checkbox(
-                          value: allPermissionsGranted, // Replace this with the actual call log permission status
+                          value: callLogPermissionGranted,
                           onChanged: (value) {
                             // Handle checkbox state change if needed
                           },
@@ -182,10 +189,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           await _requestMessagePermission();
                         },
                         title: Text("Messages"),
-                        subtitle:
-                        Text("We need this permission to send you important messages and updates about your account and potential connections."),
+                        subtitle: Text(
+                            "We need this permission to send you important messages and updates about your account and potential connections."),
                         trailing: Checkbox(
-                          value: allPermissionsGranted, // Replace this with the actual message permission status
+                          value: messagePermissionGranted,
                           onChanged: (value) {
                             // Handle checkbox state change if needed
                           },
@@ -200,10 +207,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           await _requestOverlayPermission();
                         },
                         title: Text("Alert"),
-                        subtitle:
-                        Text("We need this permission to show timely alerts and reminders on top of other apps about potential matches."),
+                        subtitle: Text(
+                            "We need this permission to show timely alerts and reminders on top of other apps about potential matches."),
                         trailing: Checkbox(
-                          value: allPermissionsGranted, // Replace this with the actual overlay permission status
+                          value: overlayPermissionGranted,
                           onChanged: (value) {
                             // Handle checkbox state change if needed
                           },
@@ -229,7 +236,8 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           ),
                           style: ElevatedButton.styleFrom(
                             primary: allPermissionsGranted
-                                ? Color(0xFF1D4D4F): Colors.white70,
+                                ? Color(0xFF1D4D4F)
+                                : Colors.white70,
                           ),
                         ),
                       ),

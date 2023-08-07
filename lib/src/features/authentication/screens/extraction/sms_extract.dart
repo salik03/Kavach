@@ -21,7 +21,6 @@ class _MyAppState extends State<SMSScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter SMS Inbox App',
       theme: ThemeData(
         primarySwatch: Colors.teal,
         textTheme: TextTheme(
@@ -29,9 +28,6 @@ class _MyAppState extends State<SMSScreen> {
         ),
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('SMS Inbox Example'),
-        ),
         body: Container(
           padding: const EdgeInsets.all(10.0),
           child: _messages.isNotEmpty

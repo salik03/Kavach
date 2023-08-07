@@ -13,10 +13,10 @@ class TtextTheme {
   );
   static TextTheme darkTextTheme = TextTheme(
     headline2: GoogleFonts.roboto(
-      color: Colors.white70,
+      color: Colors.black87,
     ),
     subtitle2: GoogleFonts.roboto(
-      color: Colors.white60,
+      color: Colors.black54,
       fontSize: 14,
     ),
   );

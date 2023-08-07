@@ -37,6 +37,8 @@ dependencies:
   http: ^1.1.0
   flutter_sms_inbox: ^1.0.3
   google_nav_bar: ^5.0.6
+  call_log: ^4.0.0
+  workmanager: ^0.5.1
 
 
 dev_dependencies:

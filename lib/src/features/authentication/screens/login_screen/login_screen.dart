@@ -33,9 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          title: Text('Phone Authentication'),
-        ),
+
         body: Container(
           decoration: BoxDecoration(
             gradient: bgradient,
@@ -48,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: Image.asset(
                   login,
-                  width: 338,
-                  height: 380,
+                  // width: 338,
+                  // height: 380,
                   fit: BoxFit.contain,
                 ),
               ),
