@@ -135,6 +135,12 @@ class _VerifyScreenState extends State<VerifyScreen> {
           .signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationCode!, smsCode: _pinPutController.text))
           .then((value) async {
         if (value.user != null) {
+          setState(() {
+            _userId = value.user!.uid;
+          });
+
+          print("User UID: $_userId");
+
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => RegistrationPage()),
