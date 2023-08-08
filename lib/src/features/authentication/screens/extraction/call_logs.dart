@@ -1,6 +1,8 @@
 import 'package:call_log/call_log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class PhonelogsScreen extends StatefulWidget {
   @override
@@ -23,6 +25,8 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +48,14 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
   }
 
   void _showCallLogDetailsDialog(CallLogEntry callLog) {
+    String formattedTimestamp = "Unknown Timestamp";
+
+    if (callLog.timestamp != null) {
+      formattedTimestamp = DateFormat.yMd().add_Hms().format(
+        DateTime.fromMillisecondsSinceEpoch(callLog.timestamp!),
+      );
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -57,6 +69,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
               Text("Number: ${callLog.number}"),
               Text("Call Type: ${_getCallTypeString(callLog.callType!)}"),
               Text("Call Duration: ${callLog.duration} seconds"),
+              Text("Call Time Stamp: $formattedTimestamp"),
             ],
           ),
           actions: [
@@ -71,6 +84,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
       },
     );
   }
+
 
   String _getCallTypeString(CallType callType) {
     switch (callType) {

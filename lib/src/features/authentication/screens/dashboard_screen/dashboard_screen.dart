@@ -3,8 +3,10 @@ import 'package:kavach_2/src/constants/colors.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
+import '../chatbot_screen/chatbot_screen.dart';
 import '../extraction/call_logs.dart';
 import '../extraction/email/email.dart';
+import '../extraction/email/webview.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
@@ -28,8 +30,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     HomeScreen(), // Home Placeholder
     PhonelogsScreen(),
     SMSScreen(),
-    GmailInboxScreen(), // Mails Placeholder
-    Placeholder(), // Nischal Placeholder
+    Placeholder(), // Mails Placeholder
+    ChatPage(), // Nischal Placeholder
   ];
 
   void _onItemTapped(int index) {

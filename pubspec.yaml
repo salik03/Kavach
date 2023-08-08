@@ -45,6 +45,12 @@ dependencies:
   shared_preferences: ^2.2.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.10
   flutter_native_splash: ^2.3.1
+  chat_gpt_sdk: ^2.2.4
+  dart_openai: ^4.0.0
+  flutter_chat_ui:
+  flutter_chat_types: ^3.6.2
+  flutter_webview_plugin: ^0.4.0
+  web_browser: ^0.7.4
 
 
 dev_dependencies:

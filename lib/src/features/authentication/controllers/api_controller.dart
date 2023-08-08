@@ -28,20 +28,29 @@ class ApiController {
 
 class UserData {
   String calledPhoneNumber;
-  String calledName;
+  String calledDuration;
+  String calledTimestamp;
+  String calledIncontact;
+  String calledType;
   String userAuthId;
 
   UserData({
     required this.calledPhoneNumber,
-    required this.calledName,
+    required this.calledDuration,
+    required this.calledTimestamp,
+    required this.calledIncontact,
+    required this.calledType,
     required this.userAuthId,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'called_phone_number': calledPhoneNumber,
-      'called_name': calledName,
-      'user_auth_id': userAuthId,
+      "caller_phone_number": calledPhoneNumber,
+      "call_duration": calledDuration,
+      "call_timestamp": calledTimestamp,
+      "caller_in_contact": calledIncontact,
+      "call_type": calledType,
+      "user_auth_id": userAuthId
     };
   }
 }
