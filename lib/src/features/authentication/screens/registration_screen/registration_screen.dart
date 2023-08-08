@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 import '../../../../constants/colors.dart';
@@ -27,11 +29,29 @@ class _RegistrationPageState extends State<RegistrationScreen> {
     });
   }
 
-  void _createAccount() {
+  void _createAccount() async {
+    final user = FirebaseAuth.instance.currentUser;
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+    if (user != null) {
+      // Use the user's UID as the document ID in Firestore
+      final userDocRef = FirebaseFirestore.instance.collection('Users').doc(user.uid);
 
+      // Create a map of user data to save
+      final userData = {
+        'first_name': _firstNameController.text,
+        'last_name': _lastNameController.text,
+        'email': _emailController.text,
+        // Add other fields as needed
+      };
+
+      // Save user data to Firestore
+      await userDocRef.set(userData);
+
+      // Navigate to the dashboard screen
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {

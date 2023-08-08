@@ -11,6 +11,7 @@ import 'package:kavach_2/src/features/authentication/screens/overlay.dart';
 import 'package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/registration_screen/registration_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/splash_screen/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:kavach_2/src/features/authentication/screens/login_screen/login_screen.dart';
 import 'package:kavach_2/src/utils/theme/theme.dart';
@@ -21,11 +22,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? storedUserId = prefs.getString('user_id');
+
+  Widget initialScreen = storedUserId != null ? DashboardScreen() : LoginScreen();
+
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     translations: LocalString(),
     locale: Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
-    home: LoginScreen(),
+    home: initialScreen,
   ));
 }
+
