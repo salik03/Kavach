@@ -18,6 +18,6 @@ class TAppTheme {
     }),
     textTheme: TtextTheme.lightTextTheme,
   );
-  static ThemeData darkTheme = ThemeData(
-      brightness: Brightness.dark, textTheme: TtextTheme.darkTextTheme);
+  // static ThemeData darkTheme = ThemeData(
+  //     brightness: Brightness.dark, textTheme: TtextTheme.darkTextTheme);
 }

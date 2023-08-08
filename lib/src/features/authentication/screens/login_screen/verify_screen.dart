@@ -194,4 +194,3 @@ class _VerifyScreenState extends State<VerifyScreen> {
     _verifyPhone();
   }
 }
-

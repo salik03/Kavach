@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:kavach_2/src/Testing.dart';
 import 'package:kavach_2/src/constants/language_hardcode.dart';
+import 'package:kavach_2/src/features/authentication/controllers/api_controller.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/extraction/sms_extract.dart';
 import 'package:kavach_2/src/features/authentication/screens/language/language_screen.dart';
@@ -24,7 +26,6 @@ void main() async {
     translations: LocalString(),
     locale: Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
-    home: DashboardScreen(),
+    home: TestingScreen(),
   ));
 }
-
