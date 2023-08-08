@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:kavach_2/src/features/authentication/screens/login_screen/verify_screen.dart';
 
 import '../../../../constants/colors.dart';
@@ -70,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Login/Sign Up',
+                      'Login/Sign Up'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 36,
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Enter your Phone Number\n',
+                      'Enter your Phone Number\n'.tr,
                       textAlign: TextAlign.left,
                     ),
                     SizedBox(height: 16),
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       margin: EdgeInsets.only(top: 0, right: 10, left: 10),
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: 'Phone Number',
+                          hintText: 'Phone Number'.tr,
                           prefix: Padding(
                             padding: EdgeInsets.all(4),
                             child: Text('+91'),
@@ -116,8 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                           primary: buttonColor,
                         ),
-                        child: const Text(
-                          'Confirm',
+                        child: Text(
+                          'confirm'.tr,
                           style: TextStyle(color: Colors.white70),
                         ),
                       ),

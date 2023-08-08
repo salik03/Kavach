@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:kavach_2/src/features/authentication/screens/login_screen/login_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -116,7 +117,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'App Permissions',
+                        'App_Permissions'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -124,7 +125,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'We understand the nature and sensitivity of this topic and have taken strong measures to ensure that your data is not compromised.\n',
+                        'We understand the nature and sensitivity of this topic and have taken strong measures to ensure that your data is not compromised.\n'.tr,
                         textAlign: TextAlign.center,
                       ),
                       ListTile(
