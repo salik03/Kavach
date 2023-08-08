@@ -17,7 +17,7 @@ class LanguageScreen extends StatelessWidget {
     {'name': 'English', 'locale': const Locale('en', 'US')},
     {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
     {'name': 'ગુજરાતી', 'locale': const Locale('gu', 'IN')},
-    {'name': 'తెలుగు', 'locale': const Locale('te', 'IN')},
+    {'name': 'తెలుగు', 'locale': const Locale('kn', 'IN')},
   ];
 
   void _updateLanguage(BuildContext context, Locale locale) {
@@ -93,8 +93,8 @@ class LanguageScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       primary: buttonColor,
                     ),
-                    child: const Text(
-                      'Confirm',
+                    child: Text(
+                      'confirm'.tr,
                       style: TextStyle(color: Colors.white70),
                     ),
                   ),

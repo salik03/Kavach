@@ -39,6 +39,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   call_log: ^4.0.0
   workmanager: ^0.5.1
+  localstorage: ^4.0.0+1
 
 
 dev_dependencies:
