@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Add the SMSScreen widget to the list of widget options
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(), // Home Placeholder
-    CallLogViewerScreen(),
+    PhonelogsScreen(),
     SMSScreen(),
     GmailInboxScreen(), // Mails Placeholder
     Placeholder(), // Nischal Placeholder
