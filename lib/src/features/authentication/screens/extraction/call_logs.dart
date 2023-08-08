@@ -39,7 +39,6 @@ class _MyAppState extends State<CallLogViewerScreen> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('call_log example')),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[

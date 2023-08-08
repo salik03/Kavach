@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
 import '../extraction/call_logs.dart';
+import '../extraction/email/email.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
@@ -27,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     HomeScreen(), // Home Placeholder
     CallLogViewerScreen(),
     SMSScreen(),
-    Placeholder(), // Mails Placeholder
+    GmailInboxScreen(), // Mails Placeholder
     Placeholder(), // Nischal Placeholder
   ];
 

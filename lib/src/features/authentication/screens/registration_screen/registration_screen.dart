@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
-import 'package:localstorage/localstorage.dart';
 import '../../../../constants/colors.dart';
 import 'package:get/get.dart';
 class RegistrationScreen extends StatefulWidget {

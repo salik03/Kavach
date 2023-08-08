@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:kavach_2/src/features/authentication/screens/registration_screen/registration_screen.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../language/language_screen.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
@@ -139,7 +140,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
             _userId = value.user!.uid;
           });
 
-          print("User UID: $_userId");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('user_id', _userId!);
 
           Navigator.pushAndRemoveUntil(
             context,
@@ -152,6 +154,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
+
 
   void _onEditNumberButtonPressed() {
     Navigator.pop(context);
