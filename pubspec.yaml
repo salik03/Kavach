@@ -45,6 +45,7 @@ dependencies:
   url_launcher: ^6.1.12
   shared_preferences: ^2.2.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.10
+  kommunicate_flutter: ^1.7.0
 
 
 

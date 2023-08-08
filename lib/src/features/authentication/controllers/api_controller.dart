@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiController {
-  final String baseUrl = 'https://605b-103-148-1-122.ngrok-free.app/api/v1/call/incoming';
+  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
 
   Future<String> postCallData(Map<String, dynamic> data) async {
     try {
