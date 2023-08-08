@@ -143,7 +143,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
 
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => RegistrationPage()),
+            MaterialPageRoute(builder: (context) => RegistrationScreen()),
                 (route) => false,
           );
         }
@@ -167,7 +167,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistrationPage()),
+                  MaterialPageRoute(builder: (context) => RegistrationScreen()),
                       (route) => false);
             }
           });

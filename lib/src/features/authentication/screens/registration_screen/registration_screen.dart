@@ -3,14 +3,14 @@ import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/da
 import 'package:localstorage/localstorage.dart';
 import '../../../../constants/colors.dart';
 import 'package:get/get.dart';
-class RegistrationPage extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
 
 
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _RegistrationPageState extends State<RegistrationScreen> {
   bool _acceptedTerms = false;
   bool _isButtonEnabled = false;
 
