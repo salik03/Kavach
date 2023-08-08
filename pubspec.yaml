@@ -38,14 +38,13 @@ dependencies:
   flutter_sms_inbox: ^1.0.3
   google_nav_bar: ^5.0.6
   call_log: ^4.0.0
-  workmanager: ^0.5.1
   googleapis: ^11.4.0
   google_sign_in: ^6.1.4
   googleapis_auth: ^1.4.1
   url_launcher: ^6.1.12
   shared_preferences: ^2.2.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.10
-  kommunicate_flutter: ^1.7.0
+
 
 
 
