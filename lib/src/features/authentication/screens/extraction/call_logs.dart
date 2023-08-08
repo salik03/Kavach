@@ -55,7 +55,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
             children: [
               Text("Name: ${callLog.name ?? 'Unknown'}"),
               Text("Number: ${callLog.number}"),
-              // Text("Call Type: ${_getCallTypeString(callLogs as CallType)}"),
+              Text("Call Type: ${_getCallTypeString(callLog.callType!)}"),
               Text("Call Duration: ${callLog.duration} seconds"),
             ],
           ),
