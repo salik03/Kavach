@@ -44,59 +44,37 @@ dependencies:
   url_launcher: ^6.1.12
   shared_preferences: ^2.2.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.10
-
-
-
-
+  flutter_native_splash: ^2.3.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  android: true
+  color: '#ffffff'
+  color_dark: '#ffffff'
+  image: assets/images/logo.png
+  image_dark: assets/images/logo.png
+
+  android_12:
+    image: assets/images/logo.png
+    icon_background_color: "#ffffff"
+    image-dark: assets/images/logo.png
+    icon-background-color-dark: "#ffffff"
+
+
+
 flutter:
   assets:
     - assets/images/
     - assets/images/on_boarding_images/on-boarding-image.png
     - assets/images/splashscreen.png
 
-  fonts:
-    - family: abot
-      fonts:
-        - asset: assets/fonts/abot.ttf
-
-
-
 
   uses-material-design: true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

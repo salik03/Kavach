@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 
 const String logo = "assets/images/logo.png";
+
 const String permission = "assets/images/PermissionPage.png";
 const String login = "assets/images/loginasset.png";
 const String tagline = "assets/images/tagline.png";

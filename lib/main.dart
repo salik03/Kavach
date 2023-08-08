@@ -24,17 +24,14 @@ void main() async {
   );
 
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? storedUserId = prefs.getString('user_id');
 
-  Widget initialScreen = storedUserId != null ? DashboardScreen() : DashboardScreen();
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     translations: LocalString(),
     locale: Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
-    home: DashboardScreen(),
+    home: SplashScreen(),
   ));
 }
 
