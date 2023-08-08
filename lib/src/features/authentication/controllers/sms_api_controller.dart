@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class ApiController {
-  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
+class SmsApiController {
+  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/sms/incoming';
 
   Future<String> postCallData(Map<String, dynamic> data) async {
     try {
@@ -27,30 +27,25 @@ class ApiController {
 }
 
 class UserData {
-  String calledPhoneNumber;
-  String calledDuration;
-  String calledTimestamp;
-  String calledIncontact;
-  String calledType;
-  String userAuthId;
+  String phone_number_of_messenger;
+  String called_name;
+  String message_content;
+  String user_auth_id;
+
 
   UserData({
-    required this.calledPhoneNumber,
-    required this.calledDuration,
-    required this.calledTimestamp,
-    required this.calledIncontact,
-    required this.calledType,
-    required this.userAuthId,
+    required this.phone_number_of_messenger,
+    required this.called_name,
+    required this.message_content,
+    required this.user_auth_id,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      "caller_phone_number": calledPhoneNumber,
-      "call_duration": calledDuration,
-      "call_timestamp": calledTimestamp,
-      "caller_in_contact": calledIncontact,
-      "call_type": calledType,
-      "user_auth_id": userAuthId
+      "phone_number_of_messenger": phone_number_of_messenger,
+      "called_name": called_name,
+      "message_content": message_content,
+      "user_auth_id": user_auth_id
     };
   }
 }
