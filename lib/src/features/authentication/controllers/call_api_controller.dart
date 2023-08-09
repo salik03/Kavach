@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class CallApiController {
   final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
 
@@ -26,31 +27,6 @@ class CallApiController {
     }
   }
 }
-class SpamApiController {
-  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
-
-  Future<Map<String, dynamic>> fetchSpamStatus(Map<String, dynamic> postData) async {
-    try {
-      final response = await http.post(
-        Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(postData),
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['SpamStaus'];
-      } else {
-        print('Failed to fetch spam status. Status code: ${response.statusCode}');
-        throw Exception('Failed to fetch spam status.');
-      }
-    } catch (e) {
-      print('Error while fetching spam status: $e');
-      rethrow;
-    }
-  }
-}
-
 class UserData {
   String calledPhoneNumber;
   String calledDuration;

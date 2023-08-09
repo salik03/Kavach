@@ -1,83 +1,74 @@
+import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class NotificationOverlayExample extends StatefulWidget {
-  const NotificationOverlayExample({super.key});
+// API Controller
 
-  @override
-  State<NotificationOverlayExample> createState() =>
-      _NotificationOverlayExampleState();
+class CallApiController {
+  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
+
+  Future<String> postCallData(Map<String, dynamic> data) async {
+    // ... (same as before)
+  }
 }
 
-class _NotificationOverlayExampleState extends State<NotificationOverlayExample> {
-  OverlayEntry? overlayEntry;
+// Data Models
 
-  // Function to create and show the notification overlay.
-  void showNotificationOverlay(String notificationText, Color notificationColor) {
-    // Remove the existing notification overlay.
-    removeNotificationOverlay();
+class UserData {
+  // ... (same as before)
+}
 
-    assert(overlayEntry == null);
+// Data Handling
 
-    overlayEntry = OverlayEntry(
-      builder: (BuildContext context) {
-        return Positioned(
-          top: MediaQuery.of(context).size.height * 0.2,
-          left: MediaQuery.of(context).size.width * 0.25,
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: Material(
-            color: Colors.transparent,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-              decoration: BoxDecoration(
-                color: notificationColor,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(
-                notificationText,
-                style: const TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+class CallDataHandler {
+  // ... (same as before)
+}
 
-    // Add the OverlayEntry to the Overlay.
-    Overlay.of(context)!.insert(overlayEntry!);
+// UI Components
 
-    // Automatically remove the notification overlay after 3 seconds.
-    Future.delayed(const Duration(seconds: 3), () {
-      removeNotificationOverlay();
-    });
-  }
+class PhonelogsScreen extends StatefulWidget {
+  // ... (same as before)
+}
 
-  // Remove the notification overlay.
-  void removeNotificationOverlay() {
-    overlayEntry?.remove();
-    overlayEntry = null;
-  }
+class _PhonelogsScreenState extends State<PhonelogsScreen> {
+  // ... (same as before)
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notification Overlay Sample'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Simulate a notification coming.
-            showNotificationOverlay('New Notification!', Colors.blue);
-          },
-          child: const Text('Show Notification'),
-        ),
-      ),
-    );
-  }
+class _SpamTypeButtons extends StatefulWidget {
+  // ... (same as before)
+}
+
+class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
+  // ... (same as before)
+}
+
+// Helper Functions
+
+String _getCallTypeString(CallType callType) {
+  // ... (same as before)
+}
+
+void _updateSelectedSpamType(String spamType) {
+  // ... (same as before)
+}
+
+Widget _SpamTypeButton({required String label, required String spamType}) {
+  // ... (same as before)
 }
 
 void main() {
-  runApp(MaterialApp(
-    home: NotificationOverlayExample(),
-  ));
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Phone Logs App',
+      home: PhonelogsScreen(),
+    );
+  }
 }
