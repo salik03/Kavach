@@ -57,7 +57,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration Page'),
+        title: Text('Registration Page'.tr),
       ),
       body: Center(
         child: Container(
@@ -79,7 +79,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Almost There !',
+                'Almost There !'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 26,
@@ -89,7 +89,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
               TextField(
                 controller: _firstNameController,
                 decoration: InputDecoration(
-                  hintText: 'First Name',
+                  hintText: 'First Name'.tr,
                 ),
                 onChanged: (text) {
                   _checkButtonEnabled();
@@ -99,7 +99,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
               TextField(
                 controller: _lastNameController,
                 decoration: InputDecoration(
-                  hintText: 'Last Name',
+                  hintText: 'Last Name'.tr,
                 ),
                 onChanged: (text) {
                   _checkButtonEnabled();
@@ -109,7 +109,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: 'Email ID (optional)',
+                  hintText: 'Email ID (optional)'.tr,
                 ),
               ),
               SizedBox(height: 10),
@@ -124,13 +124,13 @@ class _RegistrationPageState extends State<RegistrationScreen> {
                       });
                     },
                   ),
-                  Text('Accept the agreements'),
+                  Text('Accept the agreements'.tr),
                 ],
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _isButtonEnabled ? _createAccount : null,
-                child: Text('Create an Account'),
+                child: Text('Create an Account'.tr),
                 style: ElevatedButton.styleFrom(
                   primary: buttonColor,
                   onPrimary: _isButtonEnabled ? Colors.black : buttonColor,

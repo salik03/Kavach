@@ -114,7 +114,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   ),
                   ElevatedButton(
                     onPressed: _isConfirmButtonEnabled ? _onConfirmButtonPressed : null,
-                    child: Text('Confirm'),
+                    child: Text('confirm'),
                   ),
                   ElevatedButton(
                     onPressed: _onEditNumberButtonPressed,

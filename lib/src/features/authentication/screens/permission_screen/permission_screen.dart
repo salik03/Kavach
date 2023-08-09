@@ -91,7 +91,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                               });
                             },
                           ),
-                          Text('I agree to the terms and conditions'),
+                          Text('I agree to the terms and conditions'.tr),
                         ],
                       ),
 
@@ -109,8 +109,8 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           );
                         }
                             : null,
-                        child: const Text(
-                          'I Agree',
+                        child: Text(
+                          'I Agree'.tr,
                           style: TextStyle(color: Colors.white70),
                         ),
                         style: ElevatedButton.styleFrom(

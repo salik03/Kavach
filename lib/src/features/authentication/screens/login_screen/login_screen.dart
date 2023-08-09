@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Enter your Phone Number\n'.tr,
+                      'Enter your Phone Number'.tr,
                       textAlign: TextAlign.left,
                     ),
                     SizedBox(height: 16),
