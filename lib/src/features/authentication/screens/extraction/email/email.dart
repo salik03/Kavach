@@ -3,22 +3,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/gmail/v1.dart' as gmail;
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gmail Inbox App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GmailInboxScreen(),
-    );
-  }
-}
 
 class GmailInboxScreen extends StatefulWidget {
   @override

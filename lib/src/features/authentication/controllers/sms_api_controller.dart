@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CallApiController {
+
+class SmsApiController {
   final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
 
   Future<String> postCallData(Map<String, dynamic> data) async {
@@ -28,56 +29,52 @@ class CallApiController {
 }
 
 class UserData {
-  String calledPhoneNumber;
-  String calledDuration;
-  String calledTimestamp;
-  String calledIncontact;
-  String calledType;
-  String userAuthId;
+  String smsSender;
+  String smsName;
+  String smsContent;
+  String smsSpamType;
+  String user_id;
 
   UserData({
-    required this.calledPhoneNumber,
-    required this.calledDuration,
-    required this.calledTimestamp,
-    required this.calledIncontact,
-    required this.calledType,
-    required this.userAuthId,
+    required this.smsSender,
+    required this.smsName,
+    required this.smsContent,
+    required this.smsSpamType,
+    required this.user_id,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      "caller_phone_number": calledPhoneNumber,
-      "call_duration": calledDuration,
-      "call_timestamp": calledTimestamp,
-      "caller_in_contact": calledIncontact,
-      "call_type": calledType,
-      "user_auth_id": userAuthId
+      "phone_number_of_messenger": smsSender,
+      "called_name": smsName,
+      "message_content": smsContent,
+      "call_spam": smsSpamType,
+      "user_auth_id": user_id
     };
   }
 }
 
 class CallDataHandler {
   static Future<void> sendCallData(
-      String phoneNumber,
-      String duration,
-      String timestamp,
-      String inContact,
-      String callType,
+      String smsSender,
+      String smsName,
+      String smsContent,
+      String smsSpamType,
+      String user_id,
       ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? storedUserId = prefs.getString('user_id');
 
     if (storedUserId != null) {
       UserData userData = UserData(
-        calledPhoneNumber: phoneNumber,
-        calledDuration: duration,
-        calledTimestamp: timestamp,
-        calledIncontact: inContact,
-        calledType: callType,
-        userAuthId: storedUserId,
+        smsSender: smsSender,
+        smsName: smsName,
+        smsContent: smsContent,
+        smsSpamType: smsSpamType,
+        user_id: user_id,
       );
 
-      CallApiController apiController = CallApiController();
+      SmsApiController apiController = SmsApiController();
       Map<String, dynamic> postData = userData.toJson();
 
       try {

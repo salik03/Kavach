@@ -57,6 +57,7 @@ class UserData {
   String calledTimestamp;
   String calledIncontact;
   String calledType;
+  String callSpam;
   String userAuthId;
 
   UserData({
@@ -65,6 +66,7 @@ class UserData {
     required this.calledTimestamp,
     required this.calledIncontact,
     required this.calledType,
+    required this.callSpam,
     required this.userAuthId,
   });
 
@@ -75,6 +77,7 @@ class UserData {
       "call_timestamp": calledTimestamp,
       "caller_in_contact": calledIncontact,
       "call_type": calledType,
+      "call_spam": callSpam,
       "user_auth_id": userAuthId
     };
   }
@@ -86,6 +89,7 @@ class CallDataHandler {
       String duration,
       String timestamp,
       String inContact,
+      String callSpam,
       String callType,
       ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -98,6 +102,7 @@ class CallDataHandler {
         calledTimestamp: timestamp,
         calledIncontact: inContact,
         calledType: callType,
+        callSpam: callSpam,
         userAuthId: storedUserId,
       );
 

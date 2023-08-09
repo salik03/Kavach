@@ -1,10 +1,67 @@
+import 'dart:convert';
+
 import 'package:call_log/call_log.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../controllers/call_api_controller.dart';
+class UserData {
+  String calledPhoneNumber;
+  String calledDuration;
+  String calledTimestamp;
+  String calledIncontact;
+  String calledType;
+  String callSpam;
+  String userAuthId;
+
+  UserData({
+    required this.calledPhoneNumber,
+    required this.calledDuration,
+    required this.calledTimestamp,
+    required this.calledIncontact,
+    required this.calledType,
+    required this.callSpam,
+    required this.userAuthId,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "caller_phone_number": calledPhoneNumber,
+      "call_duration": calledDuration,
+      "call_timestamp": calledTimestamp,
+      "caller_in_contact": calledIncontact,
+      "call_type": calledType,
+      "call_spam": callSpam,
+      "user_auth_id": userAuthId
+    };
+  }
+}
+
+class CallApiController {
+  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
+
+  Future<String> postCallData(Map<String, dynamic> data) async {
+    try {
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        print('POST request successful.');
+        return response.body;
+      } else {
+        print('Failed to make a POST request. Status code: ${response.statusCode}');
+        throw Exception('Failed to make a POST request.');
+      }
+    } catch (e) {
+      print('Error while making POST request: $e');
+      throw e;
+    }
+  }
+}
 
 class PhonelogsScreen extends StatefulWidget {
   @override
@@ -27,58 +84,31 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: callLogs.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              _showCallLogDetailsDialog(callLogs[index]);
-            },
-            child: ListTile(
-              title: Text(callLogs[index].name ?? callLogs[index].number!),
-              subtitle: Text(callLogs[index].number!),
-            ),
-          );
-        },
-      ),
-    );
+  String _getCallTypeString(CallType callType) {
+    // Define this function as per your needs
   }
 
-  void _showCallLogDetailsDialog(CallLogEntry callLog) async {
-    String formattedTimestamp = "Unknown Timestamp";
+  void _sendCallDataToApi(UserData userData) async {
+    // Define the logic to send data to API using CallApiController
+  }
 
-    if (callLog.timestamp != null) {
-      formattedTimestamp = DateFormat.yMd().add_Hms().format(
-        DateTime.fromMillisecondsSinceEpoch(callLog.timestamp!),
-      );
-    }
-
-    // Fetch spam status
-    Map<String, dynamic> postData = {
-      // Add the necessary data to the postData map
-      // For example, you might need to include the phone number or other details
-      "phone_number": callLog.number,
-    };
-    // String spamStatus = await SpamApiController().fetchSpamStatus(postData);
-
+  void _showSpamOptionsDialog(CallLogEntry callLog) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Call Log Details"),
+          title: Text("Mark Call as Spam"),
           content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Name: ${callLog.name ?? 'Unknown'}"),
-              Text("Number: ${callLog.number}"),
-              Text("Call Type: ${_getCallTypeString(callLog.callType!)}"),
-              Text("Call Duration: ${callLog.duration} seconds"),
-              Text("Call Time Stamp: $formattedTimestamp"),
-              //Text("Spam Status: $spamStaus"),
+              TextButton(
+                onPressed: () {
+                  _markCallAsSpam(callLog, "Normal");
+                },
+                child: Text("Normal"),
+              ),
+              // Add buttons for other spam types here
             ],
           ),
           actions: [
@@ -86,7 +116,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Close"),
+              child: Text("Cancel"),
             ),
           ],
         );
@@ -94,22 +124,55 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
     );
   }
 
-  String _getCallTypeString(CallType callType) {
-    switch (callType) {
-      case CallType.incoming:
-        return "Incoming";
-      case CallType.outgoing:
-        return "Outgoing";
-      case CallType.missed:
-        return "Missed";
-      case CallType.rejected:
-        return "Rejected";
-      case CallType.blocked:
-        return "Blocked";
-      case CallType.voiceMail:
-        return "Voicemail";
-      default:
-        return "Unknown";
+  void _markCallAsSpam(CallLogEntry callLog, String spamType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUserId = prefs.getString('user_id');
+
+    if (storedUserId != null) {
+      UserData userData = UserData(
+        calledPhoneNumber: callLog.number!,
+        calledDuration: callLog.duration.toString(),
+        calledTimestamp: callLog.timestamp!.toString(),
+        calledIncontact: callLog.name ?? '',
+        calledType: _getCallTypeString(callLog.callType!),
+        callSpam: spamType,
+        userAuthId: storedUserId,
+      );
+
+      _sendCallDataToApi(userData);
+    } else {
+      print('User ID not found in SharedPreferences.');
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: callLogs.length,
+        itemBuilder: (context, index) {
+          CallLogEntry callLog = callLogs[index];
+          return GestureDetector(
+            onTap: () {
+              _showCallLogDetailsDialog(callLog);
+            },
+            child: ListTile(
+              title: Text(callLog.name ?? callLog.number!),
+              subtitle: Text(callLog.number!),
+              trailing: ElevatedButton(
+                onPressed: () {
+                  _showSpamOptionsDialog(callLog);
+                },
+                child: Text("Mark Spam"),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showCallLogDetailsDialog(CallLogEntry callLog) {
+    // Define the logic to show call log details dialog
   }
 }
