@@ -199,7 +199,7 @@
 //   }
 //
 //   Future<String> _sendSpamDetailsToApi(String spamType) async {
-//     final userId = /
+//     final userId = // Get user ID from SharedPreferences
 //     final apiUrl = // Your API URL
 //
 //     final Map<String, dynamic> requestBody = {
