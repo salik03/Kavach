@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
 import '../chatbot_screen/chatbot_screen.dart';
+import '../email_embedd/email_embedd.dart';
 import '../extraction/apiintegration/callapi.dart';
 import '../extraction/apiintegration/smsapi.dart';
 import '../extraction/call_logs.dart';
@@ -32,7 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     HomeScreen(), // Home Placeholder
     PhonelogsScreenApi(),
     SMSScreenApi(),
-    Placeholder(), // Mails Placeholder
+    GmailWebViewScreen(), // Mails Placeholder
     ChatPage(), // Nischal Placeholder
   ];
 
