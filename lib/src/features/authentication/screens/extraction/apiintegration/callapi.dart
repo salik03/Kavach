@@ -128,14 +128,20 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
   }
 
   Future<void> _sendCallLogData(CallLogEntry callLog) async {
-    if (storedUserId != null) {
+    if (storedUserId != null && callLog.callType != CallType.unknown) {
       CallApiController apiController = CallApiController();
 
+      String callerName = await _getContactName(callLog.number ?? "");
+      if (callerName == "Unknown Contact") {
+        // Handle unknown contact gracefully.
+        callerName = "";
+      }
+
       Map<String, dynamic> callData = {
-        "caller_phone_number": callLog.number!,
+        "caller_phone_number": callLog.number ?? "",
         "call_duration": callLog.duration.toString(),
-        "call_timestamp": callLog.timestamp.toString(),
-        "caller_in_contact": await _getContactName(callLog.number!),
+        "call_timestamp": callLog.timestamp?.toString() ?? "",
+        "caller_in_contact": callerName,
         "call_type": _getCallTypeString(callLog.callType!),
         "user_auth_id": storedUserId!,
       };
@@ -152,7 +158,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
         print('Error sending call log data: $e');
       }
     } else {
-      print('User ID not found in SharedPreferences.');
+      print('User ID not found in SharedPreferences or call type unknown.');
     }
   }
 

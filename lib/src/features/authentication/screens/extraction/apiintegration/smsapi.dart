@@ -80,6 +80,7 @@ class _MyAppState extends State<SMSScreenApi> {
       print('User ID not found in SharedPreferences.');
     }
   }
+
   Future<void> fetchSmsData() async {
     var permission = await Permission.sms.status;
     if (permission.isGranted) {
@@ -144,6 +145,24 @@ class _MessagesListView extends StatelessWidget {
   final List<SmsMessage> messages;
 
   @override
+  Future<Color> _getContainerColor(String messageId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? responseJson = prefs.getString('sms_response_$messageId');
+
+    if (responseJson != null) {
+      Map<String, dynamic> responseMap = json.decode(responseJson);
+      String spamStatus = responseMap['spamStaus'] ?? '';
+
+      if (spamStatus.toLowerCase() == 'spam') {
+        return Colors.red;
+      } else {
+        return Colors.green;
+      }
+    }
+    return Colors.grey; // Default color if responseJson is null
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
@@ -154,13 +173,45 @@ class _MessagesListView extends StatelessWidget {
         return ExpansionTile(
           title: Text('${message.sender} [${message.date}]'),
           children: [
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Text('${message.body}'),
+            FutureBuilder<Color>(
+              future: _getContainerColor("${message.id}"),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(13),
+                      color: snapshot.data,
+                    ),
+                    padding: const EdgeInsets.all(10.0),
+
+                    child: Text('${message.body}'),
+                  );
+                } else {
+                  return Text('No data available.');
+                }
+              },
             ),
           ],
         );
       },
     );
+  }
+  Future<String?> _getResponseFromSharedPreferences(String messageId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? responseJson = prefs.getString('sms_response_$messageId');
+
+    if (responseJson != null) {
+      // Deserialize the JSON response
+      Map<String, dynamic> responseMap = json.decode(responseJson);
+
+      // Extract relevant fields
+      String spamStatus = responseMap['spamStaus'] ?? '';
+      return spamStatus;
+    }
+    return null; // Handle case when responseJson is null
   }
 }
