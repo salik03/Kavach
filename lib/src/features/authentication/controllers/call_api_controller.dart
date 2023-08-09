@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class callApiController {
+class CallApiController {
   final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
 
   Future<String> postCallData(Map<String, dynamic> data) async {
@@ -52,5 +53,41 @@ class UserData {
       "call_type": calledType,
       "user_auth_id": userAuthId
     };
+  }
+}
+
+class CallDataHandler {
+  static Future<void> sendCallData(
+      String phoneNumber,
+      String duration,
+      String timestamp,
+      String inContact,
+      String callType,
+      ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUserId = prefs.getString('user_id');
+
+    if (storedUserId != null) {
+      UserData userData = UserData(
+        calledPhoneNumber: phoneNumber,
+        calledDuration: duration,
+        calledTimestamp: timestamp,
+        calledIncontact: inContact,
+        calledType: callType,
+        userAuthId: storedUserId,
+      );
+
+      CallApiController apiController = CallApiController();
+      Map<String, dynamic> postData = userData.toJson();
+
+      try {
+        await apiController.postCallData(postData);
+        print('Call data sent successfully.');
+      } catch (e) {
+        print('Error sending call data: $e');
+      }
+    } else {
+      print('User ID not found in SharedPreferences.');
+    }
   }
 }

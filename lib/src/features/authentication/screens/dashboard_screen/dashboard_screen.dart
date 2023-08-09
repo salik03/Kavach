@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
 import '../chatbot_screen/chatbot_screen.dart';
+import '../extraction/apiintegration/callapi.dart';
+import '../extraction/apiintegration/smsapi.dart';
 import '../extraction/call_logs.dart';
 import '../extraction/email/email.dart';
 import '../extraction/email/webview.dart';
@@ -28,8 +30,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Add the SMSScreen widget to the list of widget options
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(), // Home Placeholder
-    PhonelogsScreen(),
-    SMSScreen(),
+    PhonelogsScreenApi(),
+    SMSScreenApi(),
     Placeholder(), // Mails Placeholder
     ChatPage(), // Nischal Placeholder
   ];

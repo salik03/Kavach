@@ -51,6 +51,7 @@ dependencies:
   flutter_chat_types: ^3.6.2
   flutter_webview_plugin: ^0.4.0
   web_browser: ^0.7.4
+  contacts_service: ^0.6.3
 
 
 dev_dependencies:

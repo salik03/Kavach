@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SmsApiController {
   final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/sms/incoming';
 
-  Future<String> postCallData(Map<String, dynamic> data) async {
+  Future<String> postSmsData(Map<String, dynamic> data) async {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
@@ -26,26 +27,57 @@ class SmsApiController {
   }
 }
 
-class UserData {
-  String phone_number_of_messenger;
-  String called_name;
-  String message_content;
-  String user_auth_id;
+class SmsData {
+  String phoneNumberOfMessenger;
+  String calledName;
+  String messageContent;
+  String userAuthId;
 
-
-  UserData({
-    required this.phone_number_of_messenger,
-    required this.called_name,
-    required this.message_content,
-    required this.user_auth_id,
+  SmsData({
+    required this.phoneNumberOfMessenger,
+    required this.calledName,
+    required this.messageContent,
+    required this.userAuthId,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      "phone_number_of_messenger": phone_number_of_messenger,
-      "called_name": called_name,
-      "message_content": message_content,
-      "user_auth_id": user_auth_id
+      "phone_number_of_messenger": phoneNumberOfMessenger,
+      "called_name": calledName,
+      "message_content": messageContent,
+      "user_auth_id": userAuthId,
     };
+  }
+}
+
+class SmsDataHandler {
+  static Future<void> sendSmsData(
+      String messengerPhoneNumber,
+      String calledName,
+      String messageContent,
+      ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUserId = prefs.getString('user_id');
+
+    if (storedUserId != null) {
+      SmsData smsData = SmsData(
+        phoneNumberOfMessenger: messengerPhoneNumber,
+        calledName: calledName,
+        messageContent: messageContent,
+        userAuthId: storedUserId,
+      );
+
+      SmsApiController apiController = SmsApiController();
+      Map<String, dynamic> postData = smsData.toJson();
+
+      try {
+        await apiController.postSmsData(postData);
+        print('SMS data sent successfully.');
+      } catch (e) {
+        print('Error sending SMS data: $e');
+      }
+    } else {
+      print('User ID not found in SharedPreferences.');
+    }
   }
 }

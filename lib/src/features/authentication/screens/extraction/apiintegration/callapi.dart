@@ -1,39 +1,51 @@
-import 'package:call_log/call_log.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:call_log/call_log.dart';
+import 'package:contacts_service/contacts_service.dart';
+import '../../../controllers/call_api_controller.dart';
 
-
-class PhonelogsScreen extends StatefulWidget {
+class PhonelogsScreenApi extends StatefulWidget {
   @override
   _PhonelogsScreenState createState() => _PhonelogsScreenState();
 }
 
-class _PhonelogsScreenState extends State<PhonelogsScreen> {
+class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
   List<CallLogEntry> callLogs = [];
+  String? storedUserId;
 
   @override
   void initState() {
     super.initState();
     _getCallLogs();
+    _loadUserId();
+  }
+
+  Future<Contact?> _getContactForNumber(String phoneNumber) async {
+    Iterable<Contact> contacts = await ContactsService.getContactsForPhone(phoneNumber);
+    if (contacts.isNotEmpty) {
+      return contacts.first;
+    }
+    return null;
   }
 
   Future<void> _getCallLogs() async {
     Iterable<CallLogEntry> entries = await CallLog.get();
     setState(() {
-      callLogs = entries.toList();
+      callLogs = entries.toList().take(10).toList();
     });
   }
 
-
-
-  @override
-
-
+  Future<void> _loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    storedUserId = prefs.getString('user_id');
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Call Logs'),
+      ),
       body: ListView.builder(
         itemCount: callLogs.length,
         itemBuilder: (context, index) {
@@ -80,6 +92,13 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
+                _sendCallLogData(callLog);
+              },
+              child: Text("Send to API"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
               },
               child: Text("Close"),
             ),
@@ -88,7 +107,6 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
       },
     );
   }
-
 
   String _getCallTypeString(CallType callType) {
     switch (callType) {
@@ -108,5 +126,41 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
         return "Unknown";
     }
   }
-}
 
+  Future<void> _sendCallLogData(CallLogEntry callLog) async {
+    if (storedUserId != null) {
+      CallApiController apiController = CallApiController();
+
+      Map<String, dynamic> callData = {
+        "caller_phone_number": callLog.number!,
+        "call_duration": callLog.duration.toString(),
+        "call_timestamp": callLog.timestamp.toString(),
+        "caller_in_contact": await _getContactName(callLog.number!),
+        "call_type": _getCallTypeString(callLog.callType!),
+        "user_auth_id": storedUserId!,
+      };
+
+      try {
+        String response = await apiController.postCallData(callData);
+        print('Call log data sent successfully. Response: $response');
+
+        // Store the response in local storage using SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('call_log_response_${callLog.hashCode}', response);
+        print('Response stored in local storage.');
+      } catch (e) {
+        print('Error sending call log data: $e');
+      }
+    } else {
+      print('User ID not found in SharedPreferences.');
+    }
+  }
+
+  Future<String> _getContactName(String phoneNumber) async {
+    Contact? contact = await _getContactForNumber(phoneNumber);
+    if (contact != null) {
+      return contact.displayName ?? "Unknown Contact";
+    }
+    return "Unknown Contact";
+  }
+}

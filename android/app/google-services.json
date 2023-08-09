@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "42389832044-gn2hi3jq34mbt1bt9atom9mp1eep3uum.apps.googleusercontent.com",
+          "client_id": "42389832044-m011sm581sde53mr5lpqsjv24n7211ej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kavach_2",
+            "certificate_hash": "7b5e7ab3292895e000c5f84ad493c58346859356"
+          }
+        },
+        {
+          "client_id": "42389832044-nd410g6vgigoro8epm9la0t08hvdgh5j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.kavach_2",
