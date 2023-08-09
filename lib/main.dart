@@ -37,6 +37,6 @@ void main() async {
     translations: LocalString(),
     locale: Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
-    home: SMSScreen(),
+    home: initialScreen,
   ));
 }
