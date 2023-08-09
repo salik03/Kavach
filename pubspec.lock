@@ -129,14 +129,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  cross_file:
-    dependency: transitive
-    description:
-      name: cross_file
-      sha256: "0b0036e8cccbfbe0555fd83c1d31a6f30b77a96b598b35a5d36dd41f718695e9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.3+4"
   crypto:
     dependency: transitive
     description:
@@ -342,6 +334,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.9"
+  flutter_inappwebview:
+    dependency: "direct main"
+    description:
+      name: flutter_inappwebview
+      sha256: f73505c792cf083d5566e1a94002311be497d984b5607f25be36d685cf6361cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.2+3"
   flutter_link_previewer:
     dependency: transitive
     description:
@@ -600,6 +600,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  huawei_safetydetect:
+    dependency: "direct main"
+    description:
+      name: huawei_safetydetect
+      sha256: b4e0c4cbb7f4ec4d6194779fcca2d7c1b71da17635797f12091f7f261ad1cdac
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.4.0+302"
   image:
     dependency: "direct main"
     description:
@@ -696,14 +704,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      sha256: e4ff8e8564c03f255408decd16e7899da1733852a9110a58fe6d1b817684a63e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
   nested:
     dependency: transitive
     description:
@@ -888,22 +888,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  share_plus:
-    dependency: transitive
-    description:
-      name: share_plus
-      sha256: b1f15232d41e9701ab2f04181f21610c36c83a12ae426b79b4bd011c567934b1
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.4"
-  share_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: share_plus_platform_interface
-      sha256: "357412af4178d8e11d14f41723f80f12caea54cf0d5cd29af9dcdab85d58aea7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1133,14 +1117,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:
@@ -1157,16 +1133,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0+2"
-  web_browser:
-    dependency: "direct main"
-    description:
-      name: web_browser
-      sha256: "5cdb9814db88d391728f7c84c6189904e9c65dfa4be7166af03eb41b17905a47"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.4"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       sha256: "789d52bd789373cc1e100fb634af2127e86c99cf9abde09499743270c5de8d00"
@@ -1174,7 +1142,7 @@ packages:
     source: hosted
     version: "4.2.2"
   webview_flutter_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter_android
       sha256: d936a09fbfd08cb78f7329e0bbacf6158fbdfe24ffc908b22444c07d295eb193
@@ -1189,14 +1157,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-  webview_flutter_web:
-    dependency: transitive
-    description:
-      name: webview_flutter_web
-      sha256: "78494dd1be4b5b3070140cbdcc138b9736aa4619f00643f909da6d54f0ffc141"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2+1"
   webview_flutter_wkwebview:
     dependency: transitive
     description:

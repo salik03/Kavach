@@ -6,7 +6,6 @@ import '../../models/icons.dart';
 import '../chatbot_screen/chatbot_screen.dart';
 import '../email_embedd/email_embedd.dart';
 import '../email_embedd/email_safe.dart';
-import '../extraction/apiintegration/smsapi.dart';
 import '../extraction/call_logs.dart';
 import '../extraction/email/email.dart';
 import '../extraction/email/webview.dart';
@@ -32,7 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(), // Home Placeholder
     PhonelogsScreen(),
-    SMSScreenApi(),
+    SMSScreen(),
     WebViewExample(), // Mails Placeholder
     ChatPage(), // Nischal Placeholder
   ];

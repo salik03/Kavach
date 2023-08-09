@@ -9,7 +9,6 @@ import 'package:kavach_2/src/features/authentication/screens/email_embedd/email_
 import 'package:kavach_2/src/features/authentication/screens/extraction/apiintegration/smsapi.dart';
 import 'package:kavach_2/src/features/authentication/screens/extraction/call_logs.dart';
 import 'package:kavach_2/src/features/authentication/screens/extraction/email/email.dart';
-import 'package:kavach_2/src/features/authentication/screens/extraction/sms_extract.dart';
 import 'package:kavach_2/src/features/authentication/screens/language/language_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/login_screen/verify_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/overlay.dart';
@@ -38,6 +37,6 @@ void main() async {
     translations: LocalString(),
     locale: Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
-    home: ChatPage(),
+    home: SMSScreen(),
   ));
 }

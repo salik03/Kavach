@@ -1,105 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class SmsApiController {
-  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/sms/incoming';
-
-  Future<Map<String, dynamic>> postSmsData(Map<String, dynamic> data) async {
-    try {
-      final response = await http.post(
-        Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(data),
-      );
-
-      if (response.statusCode == 200) {
-        print('POST request successful.');
-        return json.decode(response.body);
-      } else {
-        print('Failed to make a POST request. Status code: ${response.statusCode}');
-        throw Exception('Failed to make a POST request.');
-      }
-    } catch (e) {
-      print('Error while making POST request: $e');
-      throw e;
-    }
-  }
-}
-
-class SMSScreenApi extends StatefulWidget {
-  const SMSScreenApi({Key? key}) : super(key: key);
+class SMSScreen extends StatefulWidget {
+  const SMSScreen({Key? key}) : super(key: key);
 
   @override
-  State<SMSScreenApi> createState() => _MyAppState();
+  State<SMSScreen> createState() => _SMSScreenState();
 }
 
-class _MyAppState extends State<SMSScreenApi> {
+class _SMSScreenState extends State<SMSScreen> {
   final SmsQuery _query = SmsQuery();
   List<SmsMessage> _messages = [];
-  String? storedUserId;
+  String? _userAuthId;
 
   @override
   void initState() {
     super.initState();
-    // Load user_auth_id from SharedPreferences
-    loadUserId();
+    _loadUserAuthId();
   }
 
-  Future<void> loadUserId() async {
+  Future<void> _loadUserAuthId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    storedUserId = prefs.getString('user_id');
+    setState(() {
+      _userAuthId = prefs.getString('user_id');
+    });
   }
 
-  Future<void> sendSmsData(SmsMessage message) async {
-    if (storedUserId != null) {
-      SmsApiController apiController = SmsApiController();
-
-      Map<String, dynamic> smsData = {
-        "phone_number_of_messenger": message.sender,
-        "called_name": "Some Called Name", // Replace with your data
-        "message_content": message.body,
-        "user_auth_id": storedUserId,
+  void _sendLogToApi(String smsSender, String smsName, String smsContent, String smsSpamType) async {
+    if (_userAuthId != null) {
+      Map<String, dynamic> postData = {
+        "phone_number_of_messenger": smsSender,
+        "called_name": smsName,
+        "message_content": smsContent,
+        "call_spam": smsSpamType,
+        "user_auth_id": _userAuthId,
       };
 
-      try {
-        Map<String, dynamic> response = await apiController.postSmsData(smsData);
-        print('SMS data sent successfully. Response: $response');
-
-        // Store the response in local storage using SharedPreferences
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('sms_response_${message.id}', json.encode(response));
-        print('Response stored in local storage.');
-      } catch (e) {
-        print('Error sending SMS data: $e');
-      }
-    } else {
-      print('User ID not found in SharedPreferences.');
-    }
-  }
-
-  Future<void> fetchSmsData() async {
-    var permission = await Permission.sms.status;
-    if (permission.isGranted) {
-      final messages = await _query.querySms(
-        kinds: [
-          SmsQueryKind.inbox,
-          SmsQueryKind.sent,
-        ],
-        count: 10,
+      final response = await http.post(
+        Uri.parse('https://nischal-backend.onrender.com/api/v1/sms/incoming'), // Replace with your API URL
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(postData),
       );
 
-      setState(() => _messages = messages);
-      print('Fetched ${messages.length} SMS messages.');
-
-      for (var message in messages) {
-        await sendSmsData(message);
+      if (response.statusCode == 200) {
+        print('Log data sent successfully.');
+        print(response.body);
+      } else {
+        print('Failed to send log data. Status code: ${response.statusCode}');
       }
-    } else {
-      await Permission.sms.request();
     }
   }
 
@@ -118,6 +70,7 @@ class _MyAppState extends State<SMSScreenApi> {
           child: _messages.isNotEmpty
               ? _MessagesListView(
             messages: _messages,
+            sendLogToApi: _sendLogToApi,
           )
               : Center(
             child: Text(
@@ -128,7 +81,23 @@ class _MyAppState extends State<SMSScreenApi> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: fetchSmsData,
+          onPressed: () async {
+            var permission = await Permission.sms.status;
+            if (permission.isGranted) {
+              final messages = await _query.querySms(
+                kinds: [
+                  SmsQueryKind.inbox,
+                  SmsQueryKind.sent,
+                ],
+                count: 10,
+              );
+              debugPrint('sms inbox messages: ${messages.length}');
+
+              setState(() => _messages = messages);
+            } else {
+              await Permission.sms.request();
+            }
+          },
           child: const Icon(Icons.refresh),
         ),
       ),
@@ -140,19 +109,11 @@ class _MessagesListView extends StatelessWidget {
   const _MessagesListView({
     Key? key,
     required this.messages,
+    required this.sendLogToApi,
   }) : super(key: key);
 
   final List<SmsMessage> messages;
-
-  Future<Map<String, dynamic>?> _getResponseFromSharedPreferences(String messageId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? responseJson = prefs.getString('sms_response_$messageId');
-
-    if (responseJson != null) {
-      return json.decode(responseJson);
-    }
-    return null; // Handle case when responseJson is null
-  }
+  final Function(String, String, String, String) sendLogToApi;
 
   @override
   Widget build(BuildContext context) {
@@ -165,56 +126,90 @@ class _MessagesListView extends StatelessWidget {
         return ExpansionTile(
           title: Text('${message.sender} [${message.date}]'),
           children: [
-            FutureBuilder<Map<String, dynamic>?>(
-              future: _getResponseFromSharedPreferences("${message.id}"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  final responseMap = snapshot.data!;
-                  final spamStatus = responseMap['spamStaus'] ?? '';
-                  final spamScore = responseMap['spamScore'] ?? '';
-
-                  Color backgroundColor = Colors.grey;
-
-                  if (spamStatus.toLowerCase() == 'spam') {
-                    backgroundColor = Colors.red;
-                  } else {
-                    backgroundColor = Colors.green;
-                  }
-
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      color: backgroundColor,
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${message.body}',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(height: 5),
-                        if (spamScore != null)
-                          Text(
-                            'Spam Score: $spamScore',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text('No data available.');
-                }
-              },
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text('${message.body}'),
+                  SizedBox(height: 10),
+                  _SpamTypeButtons(sendLogToApi: sendLogToApi, smsMessage: message),
+                ],
+              ),
             ),
           ],
         );
       },
+    );
+  }
+}
+
+class _SpamTypeButtons extends StatefulWidget {
+  final Function(String, String, String, String) sendLogToApi;
+  final SmsMessage smsMessage;
+
+  const _SpamTypeButtons({
+    Key? key,
+    required this.sendLogToApi,
+    required this.smsMessage,
+  }) : super(key: key);
+
+  @override
+  _SpamTypeButtonsState createState() => _SpamTypeButtonsState();
+}
+
+class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
+  String _selectedSpamType = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Select Spam Type:'),
+        Wrap(
+          spacing: 8,
+          children: [
+            _SpamTypeButton(label: 'Normal', spamType: 'Normal'),
+            _SpamTypeButton(label: 'Robocalls', spamType: 'Robocalls'),
+            _SpamTypeButton(label: 'Scams', spamType: 'Scams'),
+            _SpamTypeButton(label: 'Caller ID Spoofing', spamType: 'Caller ID Spoofing'),
+            _SpamTypeButton(label: 'Tech Support Scams', spamType: 'Tech Support Scams'),
+            _SpamTypeButton(label: 'Debt Collection', spamType: 'Debt Collection'),
+          ],
+        ),
+        SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: _selectedSpamType.isNotEmpty
+              ? () {
+            widget.sendLogToApi(
+              widget.smsMessage.sender ?? '',
+              widget.smsMessage.address ?? '',
+              widget.smsMessage.body ?? '',
+              _selectedSpamType,
+            );
+          }
+              : null,
+          child: Text('Send Log to API'),
+        ),
+
+      ],
+    );
+  }
+
+  void _updateSelectedSpamType(String spamType) {
+    setState(() {
+      _selectedSpamType = spamType;
+    });
+  }
+
+  Widget _SpamTypeButton({required String label, required String spamType}) {
+    return ElevatedButton(
+      onPressed: () => _updateSelectedSpamType(spamType),
+      child: Text(label),
+      style: ElevatedButton.styleFrom(
+        primary: _selectedSpamType == spamType ? Colors.teal : null,
+      ),
     );
   }
 }
