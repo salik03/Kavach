@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SmsApiController {
-  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/sms/incoming';
+class CallApiController {
+  final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/call/incoming';
 
-  Future<String> postSmsData(Map<String, dynamic> data) async {
+  Future<String> postCallData(Map<String, dynamic> data) async {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
@@ -27,54 +27,64 @@ class SmsApiController {
   }
 }
 
-class SmsData {
-  String phoneNumberOfMessenger;
-  String calledName;
-  String messageContent;
+class UserData {
+  String calledPhoneNumber;
+  String calledDuration;
+  String calledTimestamp;
+  String calledIncontact;
+  String calledType;
   String userAuthId;
 
-  SmsData({
-    required this.phoneNumberOfMessenger,
-    required this.calledName,
-    required this.messageContent,
+  UserData({
+    required this.calledPhoneNumber,
+    required this.calledDuration,
+    required this.calledTimestamp,
+    required this.calledIncontact,
+    required this.calledType,
     required this.userAuthId,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      "phone_number_of_messenger": phoneNumberOfMessenger,
-      "called_name": calledName,
-      "message_content": messageContent,
-      "user_auth_id": userAuthId,
+      "caller_phone_number": calledPhoneNumber,
+      "call_duration": calledDuration,
+      "call_timestamp": calledTimestamp,
+      "caller_in_contact": calledIncontact,
+      "call_type": calledType,
+      "user_auth_id": userAuthId
     };
   }
 }
 
-class SmsDataHandler {
-  static Future<void> sendSmsData(
-      String messengerPhoneNumber,
-      String calledName,
-      String messageContent,
+class CallDataHandler {
+  static Future<void> sendCallData(
+      String phoneNumber,
+      String duration,
+      String timestamp,
+      String inContact,
+      String callType,
       ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? storedUserId = prefs.getString('user_id');
 
     if (storedUserId != null) {
-      SmsData smsData = SmsData(
-        phoneNumberOfMessenger: messengerPhoneNumber,
-        calledName: calledName,
-        messageContent: messageContent,
+      UserData userData = UserData(
+        calledPhoneNumber: phoneNumber,
+        calledDuration: duration,
+        calledTimestamp: timestamp,
+        calledIncontact: inContact,
+        calledType: callType,
         userAuthId: storedUserId,
       );
 
-      SmsApiController apiController = SmsApiController();
-      Map<String, dynamic> postData = smsData.toJson();
+      CallApiController apiController = CallApiController();
+      Map<String, dynamic> postData = userData.toJson();
 
       try {
-        await apiController.postSmsData(postData);
-        print('SMS data sent successfully.');
+        await apiController.postCallData(postData);
+        print('Call data sent successfully.');
       } catch (e) {
-        print('Error sending SMS data: $e');
+        print('Error sending call data: $e');
       }
     } else {
       print('User ID not found in SharedPreferences.');

@@ -39,7 +39,7 @@ class SpamApiController {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return data;
+        return data['SpamStaus'];
       } else {
         print('Failed to fetch spam status. Status code: ${response.statusCode}');
         throw Exception('Failed to fetch spam status.');
