@@ -41,7 +41,7 @@ class _SMSScreenState extends State<SMSScreen> {
       };
 
       final response = await http.post(
-        Uri.parse('https://nischal-backend.onrender.com/api/v1/sms/incoming'), // Replace with your API URL
+        Uri.parse('YOUR_API_URL_HERE'), // Replace with your API URL
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(postData),
       );
