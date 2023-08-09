@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SmsApiController {
   final String baseUrl = 'https://nischal-backend.onrender.com/api/v1/sms/incoming';
 
-  Future<String> postSmsData(Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> postSmsData(Map<String, dynamic> data) async {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
@@ -18,7 +18,7 @@ class SmsApiController {
 
       if (response.statusCode == 200) {
         print('POST request successful.');
-        return response.body;
+        return json.decode(response.body);
       } else {
         print('Failed to make a POST request. Status code: ${response.statusCode}');
         throw Exception('Failed to make a POST request.');
@@ -66,12 +66,12 @@ class _MyAppState extends State<SMSScreenApi> {
       };
 
       try {
-        String response = await apiController.postSmsData(smsData);
+        Map<String, dynamic> response = await apiController.postSmsData(smsData);
         print('SMS data sent successfully. Response: $response');
 
         // Store the response in local storage using SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('sms_response_${message.id}', response);
+        await prefs.setString('sms_response_${message.id}', json.encode(response));
         print('Response stored in local storage.');
       } catch (e) {
         print('Error sending SMS data: $e');
@@ -144,22 +144,14 @@ class _MessagesListView extends StatelessWidget {
 
   final List<SmsMessage> messages;
 
-  @override
-  Future<Color> _getContainerColor(String messageId) async {
+  Future<Map<String, dynamic>?> _getResponseFromSharedPreferences(String messageId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? responseJson = prefs.getString('sms_response_$messageId');
 
     if (responseJson != null) {
-      Map<String, dynamic> responseMap = json.decode(responseJson);
-      String spamStatus = responseMap['spamStaus'] ?? '';
-
-      if (spamStatus.toLowerCase() == 'spam') {
-        return Colors.red;
-      } else {
-        return Colors.green;
-      }
+      return json.decode(responseJson);
     }
-    return Colors.grey; // Default color if responseJson is null
+    return null; // Handle case when responseJson is null
   }
 
   @override
@@ -173,22 +165,47 @@ class _MessagesListView extends StatelessWidget {
         return ExpansionTile(
           title: Text('${message.sender} [${message.date}]'),
           children: [
-            FutureBuilder<Color>(
-              future: _getContainerColor("${message.id}"),
+            FutureBuilder<Map<String, dynamic>?>(
+              future: _getResponseFromSharedPreferences("${message.id}"),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (snapshot.hasData) {
+                  final responseMap = snapshot.data!;
+                  final spamStatus = responseMap['spamStaus'] ?? '';
+                  final spamScore = responseMap['spamScore'] ?? '';
+
+                  Color backgroundColor = Colors.grey;
+
+                  if (spamStatus.toLowerCase() == 'spam') {
+                    backgroundColor = Colors.red;
+                  } else {
+                    backgroundColor = Colors.green;
+                  }
+
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(13),
-                      color: snapshot.data,
+                      color: backgroundColor,
                     ),
                     padding: const EdgeInsets.all(10.0),
-
-                    child: Text('${message.body}'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${message.body}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        SizedBox(height: 5),
+                        if (spamScore != null)
+                          Text(
+                            'Spam Score: $spamScore',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                      ],
+                    ),
                   );
                 } else {
                   return Text('No data available.');
@@ -200,18 +217,5 @@ class _MessagesListView extends StatelessWidget {
       },
     );
   }
-  Future<String?> _getResponseFromSharedPreferences(String messageId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? responseJson = prefs.getString('sms_response_$messageId');
-
-    if (responseJson != null) {
-      // Deserialize the JSON response
-      Map<String, dynamic> responseMap = json.decode(responseJson);
-
-      // Extract relevant fields
-      String spamStatus = responseMap['spamStaus'] ?? '';
-      return spamStatus;
-    }
-    return null; // Handle case when responseJson is null
-  }
 }
+

@@ -28,7 +28,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? storedUserId = prefs.getString('user_id');
 
-  Widget initialScreen = storedUserId != null ? DashboardScreen() : LoginScreen();
+  Widget initialScreen = storedUserId != null ? DashboardScreen() : LanguageScreen();
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

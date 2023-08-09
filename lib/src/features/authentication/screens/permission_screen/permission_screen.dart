@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
@@ -62,7 +63,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Terms and Conditions',
+                        'T&C'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -72,11 +73,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
                       // Content
                       Text(
-                        'Your privacy is our priority. We collect only essential data, and your personal data are protected!\n\n'
-                            'How we work:\n'
-                            'Nischal is a service of Foxintelligence. For the app to be free, we market data for statistical purposes on e-commerce. We do not transmit any data for advertising purposes, targeting, database, or profiling enrichment.\n\n'
-                            'Your data is protected:\n'
-                            'By using Nischal, you will never be targeted by advertisements, neither on our product nor afterwards.',
+                            'clauses'.tr,
                         textAlign: TextAlign.center,
                       ),
 

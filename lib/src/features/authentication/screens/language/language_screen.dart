@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
@@ -89,7 +90,7 @@ class LanguageScreen extends StatelessWidget {
                   height: 50,
                   width: 250,
                   child: ElevatedButton(
-                    onPressed: () => Get.to(PermissionScreen()), // Fix navigation
+                    onPressed: () => Get.to(DashboardScreen()), // Fix navigation
                     style: ElevatedButton.styleFrom(
                       primary: buttonColor,
                     ),
