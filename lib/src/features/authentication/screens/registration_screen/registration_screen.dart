@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
 import '../../../../constants/colors.dart';
-import 'package:get/get.dart';
 class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
+
 
 
   @override
@@ -15,9 +16,9 @@ class _RegistrationPageState extends State<RegistrationScreen> {
   bool _acceptedTerms = false;
   bool _isButtonEnabled = false;
 
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   void _checkButtonEnabled() {
     bool enableButton = _firstNameController.text.isNotEmpty &&
@@ -48,7 +49,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
       await userDocRef.set(userData);
 
       // Navigate to the dashboard screen
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
     }
   }
 
@@ -57,7 +58,7 @@ class _RegistrationPageState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration Page'),
+        title: const Text('Registration Page'),
       ),
       body: Center(
         child: Container(
@@ -69,50 +70,50 @@ class _RegistrationPageState extends State<RegistrationScreen> {
                 color: Colors.black.withOpacity(0.2), // Shadow color with transparency
                 spreadRadius: 2,
                 blurRadius: 4,
-                offset: Offset(0, 2), // changes position of shadow
+                offset: const Offset(0, 2), // changes position of shadow
               ),
             ],
           ),
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           width: 300,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Almost There !',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 26,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 controller: _firstNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'First Name',
                 ),
                 onChanged: (text) {
                   _checkButtonEnabled();
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _lastNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Last Name',
                 ),
                 onChanged: (text) {
                   _checkButtonEnabled();
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Email ID (optional)',
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Checkbox(
@@ -124,17 +125,16 @@ class _RegistrationPageState extends State<RegistrationScreen> {
                       });
                     },
                   ),
-                  Text('Accept the agreements'),
+                  const Text('Accept the agreements'),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _isButtonEnabled ? _createAccount : null,
-                child: Text('Create an Account'),
                 style: ElevatedButton.styleFrom(
-                  primary: buttonColor,
-                  onPrimary: _isButtonEnabled ? Colors.black : buttonColor,
+                  foregroundColor: _isButtonEnabled ? Colors.black : buttonColor, backgroundColor: buttonColor,
                 ),
+                child: const Text('Create an Account'),
               ),
             ],
           ),

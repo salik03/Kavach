@@ -23,7 +23,7 @@ class SmsApiController {
       }
     } catch (e) {
       print('Error while making POST request: $e');
-      throw e;
+      rethrow;
     }
   }
 }
@@ -60,7 +60,7 @@ class CallDataHandler {
       String smsName,
       String smsContent,
       String smsSpamType,
-      String user_id,
+      String userId,
       ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? storedUserId = prefs.getString('user_id');
@@ -71,7 +71,7 @@ class CallDataHandler {
         smsName: smsName,
         smsContent: smsContent,
         smsSpamType: smsSpamType,
-        user_id: user_id,
+        user_id: userId,
       );
 
       SmsApiController apiController = SmsApiController();

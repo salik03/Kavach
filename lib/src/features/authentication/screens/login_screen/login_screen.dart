@@ -7,12 +7,14 @@ import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   bool _isPhoneNumberValid = false;
 
   static const LinearGradient bgradient = LinearGradient(
@@ -33,16 +35,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
 
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: bgradient,
             // image: backdrop,
           ),
           padding: const EdgeInsets.all(16.0),
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
               Center(
                 child: Image.asset(
@@ -52,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Container(
                 decoration: BoxDecoration(
                   color: dialogueBoxColor,
@@ -62,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.black.withOpacity(0.2),
                       spreadRadius: 2,
                       blurRadius: 4,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -72,23 +74,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       'Login/Sign Up'.tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 36,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       'Enter your Phone Number\n'.tr,
                       textAlign: TextAlign.left,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Container(
-                      margin: EdgeInsets.only(top: 0, right: 10, left: 10),
+                      margin: const EdgeInsets.only(top: 0, right: 10, left: 10),
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Phone Number'.tr,
-                          prefix: Padding(
+                          prefix: const Padding(
                             padding: EdgeInsets.all(4),
                             child: Text('+91'),
                           ),
@@ -103,8 +105,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                     ),
-                    SizedBox(height: 16),
-                    Container(
+                    const SizedBox(height: 16),
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _isPhoneNumberValid
@@ -115,11 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                             : null,
                         style: ElevatedButton.styleFrom(
-                          primary: buttonColor,
+                          backgroundColor: buttonColor,
                         ),
                         child: Text(
                           'confirm'.tr,
-                          style: TextStyle(color: Colors.white70),
+                          style: const TextStyle(color: Colors.white70),
                         ),
                       ),
                     ),

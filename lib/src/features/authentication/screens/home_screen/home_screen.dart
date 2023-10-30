@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
               height: 145,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: 300,
               height: 200,
@@ -25,11 +27,11 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     blurRadius: 10,
                     spreadRadius: 2,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(

@@ -23,7 +23,7 @@ class CallApiController {
       }
     } catch (e) {
       print('Error while making POST request: $e');
-      throw e;
+      rethrow;
     }
   }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>42389832044-m011sm581sde53mr5lpqsjv24n7211ej.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA4UiGG1wiWI0XOo3Eo8JCeuCMxZvdwQoI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>42389832044</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.kavach</string>
+	<key>PROJECT_ID</key>
+	<string>kavach-82f78</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kavach-82f78.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:42389832044:ios:e8b584bc87e0a9e4697349</string>
+</dict>
+</plist>

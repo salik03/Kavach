@@ -1,11 +1,11 @@
 import 'package:call_log/call_log.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PhonelogsScreen extends StatefulWidget {
+  const PhonelogsScreen({super.key});
+
   @override
   _PhonelogsScreenState createState() => _PhonelogsScreenState();
 }
@@ -64,7 +64,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Call Log Details"),
+          title: const Text("Call Log Details"),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -81,7 +81,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Close"),
+              child: const Text("Close"),
             ),
           ],
         );

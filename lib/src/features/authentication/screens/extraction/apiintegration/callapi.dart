@@ -6,6 +6,8 @@ import 'package:contacts_service/contacts_service.dart';
 import '../../../controllers/call_api_controller.dart';
 
 class PhonelogsScreenApi extends StatefulWidget {
+  const PhonelogsScreenApi({super.key});
+
   @override
   _PhonelogsScreenState createState() => _PhonelogsScreenState();
 }
@@ -41,10 +43,11 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
     storedUserId = prefs.getString('user_id');
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Call Logs'),
+        title: const Text('Call Logs'),
       ),
       body: ListView.builder(
         itemCount: callLogs.length,
@@ -76,7 +79,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Call Log Details"),
+          title: const Text("Call Log Details"),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -94,13 +97,13 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
                 Navigator.pop(context);
                 _sendCallLogData(callLog);
               },
-              child: Text("Send to API"),
+              child: const Text("Send to API"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Close"),
+              child: const Text("Close"),
             ),
           ],
         );

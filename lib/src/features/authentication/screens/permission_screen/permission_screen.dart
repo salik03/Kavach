@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -35,9 +34,9 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: bgradient,
           ),
           child: Center(
@@ -51,7 +50,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                   height: 173.97,
                   fit: BoxFit.contain,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 Container(
                   width: double.infinity,
@@ -64,12 +63,12 @@ class _PermissionScreenState extends State<PermissionScreen> {
                     children: [
                       Text(
                         'T&C'.tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
 
                       // Content
                       Text(
@@ -77,7 +76,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                         textAlign: TextAlign.center,
                       ),
 
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
                       // Agreement Checkbox
                       Row(
@@ -91,11 +90,11 @@ class _PermissionScreenState extends State<PermissionScreen> {
                               });
                             },
                           ),
-                          Text('I agree to the terms and conditions'),
+                          const Text('I agree to the terms and conditions'),
                         ],
                       ),
 
-                      SizedBox(height: 16), // Add some spacing for better visual separation
+                      const SizedBox(height: 16), // Add some spacing for better visual separation
 
                       // Agree Button
                       ElevatedButton(
@@ -104,17 +103,17 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
+                              builder: (context) => const LoginScreen(),
                             ),
                           );
                         }
                             : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: agreedToTerms ? const Color(0xFF1D4D4F) : Colors.white70,
+                        ),
                         child: const Text(
                           'I Agree',
                           style: TextStyle(color: Colors.white70),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: agreedToTerms ? Color(0xFF1D4D4F) : Colors.white70,
                         ),
                       ),
                     ],

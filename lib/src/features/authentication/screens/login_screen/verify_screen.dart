@@ -1,17 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:kavach_2/src/features/authentication/screens/registration_screen/registration_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../language/language_screen.dart';
 import '../../../../constants/colors.dart';
-import '../../../../constants/image_strings.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String phone;
-  VerifyScreen(this.phone);
+  const VerifyScreen(this.phone, {super.key});
 
   @override
   _VerifyScreenState createState() => _VerifyScreenState();
@@ -33,7 +30,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 20,
       color: Color.fromRGBO(30, 60, 87, 1),
       fontWeight: FontWeight.w600,
@@ -57,10 +54,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         key: _scaffoldkey,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: bgradient,
             // image: backdrop,
           ),
@@ -77,7 +74,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 4,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -85,11 +82,11 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 40),
+                    margin: const EdgeInsets.only(top: 40),
                     child: Center(
                       child: Text(
                         'Verify +91-${widget.phone}',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                       ),
                     ),
                   ),
@@ -114,11 +111,11 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   ),
                   ElevatedButton(
                     onPressed: _isConfirmButtonEnabled ? _onConfirmButtonPressed : null,
-                    child: Text('Confirm'),
+                    child: const Text('Confirm'),
                   ),
                   ElevatedButton(
                     onPressed: _onEditNumberButtonPressed,
-                    child: Text('Edit Number'),
+                    child: const Text('Edit Number'),
                   ),
                 ],
               ),
@@ -145,7 +142,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
 
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => RegistrationScreen()),
+            MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                 (route) => false,
           );
         }
@@ -170,7 +167,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                  MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                       (route) => false);
             }
           });
@@ -188,7 +185,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
             _verificationCode = verificationID;
           });
         },
-        timeout: Duration(seconds: 120));
+        timeout: const Duration(seconds: 120));
   }
 
   @override
