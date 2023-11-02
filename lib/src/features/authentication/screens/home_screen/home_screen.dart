@@ -1,68 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:kavach_2/src/constants/image_strings.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/nischalbanner.png',
-              width: 350,
-              height: 145,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: 300,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 170,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(22),
               ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _SquareWidget(color: Colors.blue),
-                      _SquareWidget(color: Colors.green),
-                      _SquareWidget(color: Colors.red),
-                    ],
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(22),
+                    child: Image.asset(banner),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, bottom: 4),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text("Chat now"),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
-}
-
-class _SquareWidget extends StatelessWidget {
-  final Color color;
-
-  const _SquareWidget({required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60,
-      height: 60,
-      color: color,
-    );
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            "Recents",
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black87),
+                  borderRadius: BorderRadius.circular(22)),
+            ),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "Alerts",
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 150,
+            child: Placeholder(),
+          ),
+        )
+      ],
+    ));
   }
 }
