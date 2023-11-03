@@ -11,3 +11,5 @@ const Color dialogueBoxColor = Color(0xFFDDF1E9);
 const Color dividerColor = Color.fromARGB(184, 204, 202, 202);
 const Color buttonColor = Color(0xFF008357);
 const Color transparent = Color(0x01000000);
+const Color cardColor = Color(0xFFFFEDEE);
+const Color cardTextColor = Color(0xFF4D4D4D);
