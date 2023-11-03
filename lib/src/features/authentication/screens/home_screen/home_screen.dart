@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kavach_2/src/constants/image_strings.dart';
 
@@ -48,16 +49,26 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 300,
-            width: double.infinity,
-            child: Card(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.black87),
-                  borderRadius: BorderRadius.circular(22)),
+        SizedBox(
+          height: 300,
+          width: double.infinity,
+          child: Card(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.black87),
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              childAspectRatio: 2,
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.all(0),
+              children: List.generate(
+                6,
+                (index) => const Card(
+                    shape: Border(), child: Center(child: Text("test"))),
+              ),
             ),
           ),
         ),
@@ -77,5 +88,13 @@ class HomeScreen extends StatelessWidget {
         )
       ],
     ));
+  }
+}
+
+class AlertBoxes extends StatelessWidget {
+  const AlertBoxes({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const Card(child: Column(children: [Icon(CupertinoIcons.phone)],),);
   }
 }
