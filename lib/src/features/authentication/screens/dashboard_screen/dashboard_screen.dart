@@ -30,7 +30,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     const PhonelogsScreenApi(),
     const SMSScreen(),
     const WebViewExample(), // Mails Placeholder
-    const ChatPage(), // Nischal Placeholder
   ];
 
   void _onItemTapped(int index) {

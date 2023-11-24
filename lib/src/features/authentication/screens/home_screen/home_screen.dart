@@ -9,15 +9,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 170,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+        body: SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 170,
+            width: double.infinity,
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(22),
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 15, bottom: 4),
+                      padding: const EdgeInsets.only(left: 20, bottom: 8),
                       child: ElevatedButton(
                         onPressed: () {},
                         child: const Text("Chat now"),
@@ -42,70 +42,70 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            "Recents",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-          ),
-        ),
-        SizedBox(
-          height: 300,
-          width: double.infinity,
-          child: Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(color: Colors.black87),
-              borderRadius: BorderRadius.circular(22),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Text(
+              "Recents",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
-            child: GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              childAspectRatio: 2,
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.all(0),
-              children: List.generate(
-                6,
-                (index) => const Card(
-                    shape: Border(), child: Center(child: Text("test"))),
+          ),
+          SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black87),
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                childAspectRatio: 2,
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.all(0),
+                children: List.generate(
+                  6,
+                  (index) => const Card(
+                      shape: Border(), child: Center(child: Text("test"))),
+                ),
               ),
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            "Alerts",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Alerts",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        const SizedBox(
-            height: 150,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(left: 10),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  AlertBoxes(
-                    icon: CupertinoIcons.phone_fill,
-                    alertText: "Unresolved Phone Numbers",
-                    alerts: 2,
-                  ),
-                  AlertBoxes(
-                    icon: CupertinoIcons.chat_bubble_fill,
-                    alertText: "Unresolved messages ",
-                    alerts: 42,
-                  ),
-                  AlertBoxes(
-                    icon: CupertinoIcons.mail_solid,
-                    alertText: "Unresolved Emails ",
-                    alerts: 21,
-                  )
-                ],
-              ),
-            ))
-      ],
+          const SizedBox(
+              height: 150,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(left: 10),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    AlertBoxes(
+                      icon: CupertinoIcons.phone_fill,
+                      alertText: "Unresolved Phone Numbers",
+                      alerts: 2,
+                    ),
+                    AlertBoxes(
+                      icon: CupertinoIcons.chat_bubble_fill,
+                      alertText: "Unresolved messages ",
+                      alerts: 42,
+                    ),
+                    AlertBoxes(
+                      icon: CupertinoIcons.mail_solid,
+                      alertText: "Unresolved Emails ",
+                      alerts: 21,
+                    )
+                  ],
+                ),
+              ))
+        ],
+      ),
     ));
   }
 }
