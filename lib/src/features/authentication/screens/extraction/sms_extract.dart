@@ -23,8 +23,8 @@ class _MyAppState extends State<SMSScreen> {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        textTheme: TextTheme(
-          headline6: TextStyle(fontSize: 16.0), // Adjust the font size as needed
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(fontSize: 16.0), // Adjust the font size as needed
         ),
       ),
       home: Scaffold(
@@ -37,7 +37,7 @@ class _MyAppState extends State<SMSScreen> {
               : Center(
             child: Text(
               'No messages to show.\nTap the refresh button...',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
           ),

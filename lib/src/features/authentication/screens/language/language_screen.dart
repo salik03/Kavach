@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
-import 'package:kavach_2/src/features/authentication/screens/permission_screen/permission_screen.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
 
@@ -29,15 +28,15 @@ class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: bgradient,
           image: backdrop,
         ),
         child: Center(
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: dialogueBoxColor,
               borderRadius: BorderRadius.circular(30),
@@ -47,12 +46,12 @@ class LanguageScreen extends StatelessWidget {
               children: [
                 Text(
                   'language'.tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -64,7 +63,7 @@ class LanguageScreen extends StatelessWidget {
                       ),
                       child: Container(
                         color: selected ? Colors.grey[200] : null,
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
                           locale[index]['name'],
                           textAlign: TextAlign.center,
@@ -90,13 +89,13 @@ class LanguageScreen extends StatelessWidget {
                   height: 50,
                   width: 250,
                   child: ElevatedButton(
-                    onPressed: () => Get.to(DashboardScreen()), // Fix navigation
+                    onPressed: () => Get.to(const DashboardScreen()), // Fix navigation
                     style: ElevatedButton.styleFrom(
-                      primary: buttonColor,
+                      backgroundColor: buttonColor,
                     ),
                     child: Text(
                       'confirm'.tr,
-                      style: TextStyle(color: Colors.white70),
+                      style: const TextStyle(color: Colors.white70),
                     ),
                   ),
                 ),

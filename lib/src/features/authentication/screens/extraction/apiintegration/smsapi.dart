@@ -60,8 +60,8 @@ class _SMSScreenState extends State<SMSScreen> {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        textTheme: TextTheme(
-          headline6: TextStyle(fontSize: 16.0), // Adjust the font size as needed
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(fontSize: 16.0), // Adjust the font size as needed
         ),
       ),
       home: Scaffold(
@@ -75,7 +75,7 @@ class _SMSScreenState extends State<SMSScreen> {
               : Center(
             child: Text(
               'No messages to show.\nTap the refresh button...',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
           ),
@@ -132,7 +132,7 @@ class _MessagesListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text('${message.body}'),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   _SpamTypeButtons(sendLogToApi: sendLogToApi, smsMessage: message),
                 ],
               ),
@@ -166,7 +166,7 @@ class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select Spam Type:'),
+        const Text('Select Spam Type:'),
         Wrap(
           spacing: 8,
           children: [
@@ -178,7 +178,7 @@ class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
             _SpamTypeButton(label: 'Debt Collection', spamType: 'Debt Collection'),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ElevatedButton(
           onPressed: _selectedSpamType.isNotEmpty
               ? () {
@@ -190,7 +190,7 @@ class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
             );
           }
               : null,
-          child: Text('Send Log to API'),
+          child: const Text('Send Log to API'),
         ),
 
       ],
@@ -206,10 +206,10 @@ class _SpamTypeButtonsState extends State<_SpamTypeButtons> {
   Widget _SpamTypeButton({required String label, required String spamType}) {
     return ElevatedButton(
       onPressed: () => _updateSelectedSpamType(spamType),
-      child: Text(label),
       style: ElevatedButton.styleFrom(
-        primary: _selectedSpamType == spamType ? Colors.teal : null,
+        backgroundColor: _selectedSpamType == spamType ? Colors.teal : null,
       ),
+      child: Text(label),
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../dashboard_screen/dashboard_screen.dart';
 
 class WebViewExample extends StatefulWidget {
+  const WebViewExample({super.key});
+
   @override
   _WebViewExampleState createState() => _WebViewExampleState();
 }
@@ -20,16 +22,16 @@ class _WebViewExampleState extends State<WebViewExample> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Warning'),
-            content: Text('You are about to leave the Gmail website. Do you want to continue?'),
+            title: const Text('Warning'),
+            content: const Text('You are about to leave the Gmail website. Do you want to continue?'),
             actions: <Widget>[
               ElevatedButton(
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                   onPressed: () => Navigator.push(
-                      context,MaterialPageRoute(builder: (context) => DashboardScreen(),
+                      context,MaterialPageRoute(builder: (context) => const DashboardScreen(),
                   ))),
               ElevatedButton(
-                child: Text('Continue'),
+                child: const Text('Continue'),
                 onPressed: () => Navigator.of(context).pop(true),
               ),
             ],
@@ -37,7 +39,7 @@ class _WebViewExampleState extends State<WebViewExample> {
         },
       );
 
-      if (continueNavigation != null && continueNavigation) {
+      if (continueNavigation) {
         // If user chooses to continue, load the URL
         controller.loadUrl(urlRequest: URLRequest(url: url));
       }

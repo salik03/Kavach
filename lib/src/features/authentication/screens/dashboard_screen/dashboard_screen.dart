@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kavach_2/src/constants/colors.dart';
-import 'package:flutter/services.dart';
 
 import '../../models/icons.dart';
 import '../chatbot_screen/chatbot_screen.dart';
-import '../email_embedd/email_embedd.dart';
 import '../email_embedd/email_safe.dart';
 import '../extraction/apiintegration/callapi.dart';
-import '../extraction/call_logs.dart';
-import '../extraction/email/email.dart';
-import '../extraction/email/webview.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
@@ -24,17 +18,19 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
+  
+  set index(int index) => _selectedIndex = index;
 
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   // Add the SMSScreen widget to the list of widget options
-  static List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(), // Home Placeholder
-    PhonelogsScreenApi(),
-    SMSScreen(),
-    WebViewExample(), // Mails Placeholder
-    ChatPage(), // Nischal Placeholder
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(), // Home Placeholder
+    const PhonelogsScreenApi(),
+    const SMSScreen(),
+    const WebViewExample(), // Mails Placeholder
+    const ChatPage(), // Nischal Placeholder
   ];
 
   void _onItemTapped(int index) {
@@ -58,13 +54,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           onTap: () {
             // Handle menu icon tap here
           },
-          child: Icon(Icons.menu),
+          child: const Icon(Icons.menu),
         ),
         actions: [
           GestureDetector(
             onTap: _navigateToLanguageScreen,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(Icons.language), // Replace 'Icons.language' with your desired icon
             ),
           ),
@@ -79,7 +75,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
@@ -114,10 +110,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Color(0xFF1D4D4F),
-          unselectedItemColor: Color(0xFFBEBEBE),
-          selectedLabelStyle: TextStyle(color: Color(0xFF1D4D4F)),
-          unselectedLabelStyle: TextStyle(color: Color(0xFFBEBEBE)),
+          selectedItemColor: const Color(0xFF1D4D4F),
+          unselectedItemColor: const Color(0xFFBEBEBE),
+          selectedLabelStyle: const TextStyle(color: Color(0xFF1D4D4F)),
+          unselectedLabelStyle: const TextStyle(color: Color(0xFFBEBEBE)),
           onTap: _onItemTapped,
         ),
       ),

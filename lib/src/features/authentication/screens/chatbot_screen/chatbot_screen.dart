@@ -26,19 +26,31 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Future<String> _completeChat(String prompt) async {
-    final apiUrl = 'https://4e0a-103-148-1-122.ngrok-free.app/chat?prompt=$prompt';
+    const apiKey = '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';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $apiKey',
+    };
 
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
+    final data = {
+      'model': 'ada',
+      'messages': [
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': prompt},
+      ],
+    };
 
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        print('API request failed: ${response.statusCode}');
-        return 'Oops, something went wrong';
-      }
-    } catch (error) {
-      print('An error occurred: $error');
+    final response = await http.post(
+      Uri.parse('https://api.openai.com/v1/engines/davinci-codex/completions'),
+      headers: headers,
+      body: jsonEncode(data),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      return responseData['choices'][0]['message']['content'];
+    } else {
+      print('API request failed: ${response.statusCode}');
       return 'Oops, something went wrong';
     }
   }
@@ -97,5 +109,3 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
-
-
