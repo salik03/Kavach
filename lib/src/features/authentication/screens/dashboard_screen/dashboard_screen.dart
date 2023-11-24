@@ -8,7 +8,6 @@ import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
 
-
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
@@ -18,11 +17,11 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
-  
+
   set index(int index) => _selectedIndex = index;
 
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   // Add the SMSScreen widget to the list of widget options
   static final List<Widget> _widgetOptions = <Widget>[
@@ -60,7 +59,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onTap: _navigateToLanguageScreen,
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(Icons.language), // Replace 'Icons.language' with your desired icon
+              child: Icon(Icons
+                  .language), // Replace 'Icons.language' with your desired icon
             ),
           ),
         ],
@@ -102,10 +102,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.mail),
               label: 'Mails',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(MyFlutterIcon.robot),
-              label: 'Nischal',
             ),
           ],
           currentIndex: _selectedIndex,
