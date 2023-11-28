@@ -25,9 +25,8 @@ class _ChatPageState extends State<ChatPage> {
     user = const types.User(id: 'user', firstName: 'You');
   }
 
-  Future<String> _completeChat(String prompt) async {
-    // Replace 'your_flask_api_endpoint' with the actual endpoint of your Flask API
-    final apiUrl = Uri.parse('http://127.0.0.1:5000/chat');
+  Future<List<String>> _completeChat(String prompt) async {
+    final apiUrl = Uri.parse('https://1a9e-118-185-21-138.ngrok-free.app/chat');
 
     final headers = {'Content-Type': 'application/json'};
 
@@ -41,15 +40,17 @@ class _ChatPageState extends State<ChatPage> {
       );
 
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
-        return responseData['response'];
+        final responseData = jsonDecode(response.body) as List;
+        // Assuming the response is an array of strings
+        final List<String> responses = responseData.cast<String>();
+        return responses;
       } else {
         print('API request failed: ${response.statusCode}');
-        return 'Oops, something went wrong';
+        return ['Oops, something went wrong'];
       }
     } catch (e) {
       print('Error during API request: $e');
-      return 'Oops, something went wrong';
+      return ['Oops, something went wrong'];
     }
   }
 
@@ -69,7 +70,7 @@ class _ChatPageState extends State<ChatPage> {
 
     try {
       final aiResponse = await _completeChat(message.text);
-
+      print(aiResponse);
       setState(() {
         isAiTyping = false;
       });
@@ -78,7 +79,7 @@ class _ChatPageState extends State<ChatPage> {
         author: ai,
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        text: aiResponse,
+        text: "testing",
       );
 
       _addMessage(aiMessage);
