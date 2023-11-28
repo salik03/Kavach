@@ -26,31 +26,29 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Future<String> _completeChat(String prompt) async {
-    const apiKey = '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';
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $apiKey',
-    };
+    // Replace 'your_flask_api_endpoint' with the actual endpoint of your Flask API
+    final apiUrl = Uri.parse('http://127.0.0.1:5000/chat');
 
-    final data = {
-      'model': 'ada',
-      'messages': [
-        {'role': 'system', 'content': 'You are a helpful assistant.'},
-        {'role': 'user', 'content': prompt},
-      ],
-    };
+    final headers = {'Content-Type': 'application/json'};
 
-    final response = await http.post(
-      Uri.parse('https://api.openai.com/v1/engines/davinci-codex/completions'),
-      headers: headers,
-      body: jsonEncode(data),
-    );
+    final data = {'question': prompt};
 
-    if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
-      return responseData['choices'][0]['message']['content'];
-    } else {
-      print('API request failed: ${response.statusCode}');
+    try {
+      final response = await http.post(
+        apiUrl,
+        headers: headers,
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        return responseData['response'];
+      } else {
+        print('API request failed: ${response.statusCode}');
+        return 'Oops, something went wrong';
+      }
+    } catch (e) {
+      print('Error during API request: $e');
       return 'Oops, something went wrong';
     }
   }
@@ -69,20 +67,29 @@ class _ChatPageState extends State<ChatPage> {
       isAiTyping = true;
     });
 
-    final aiResponse = await _completeChat(message.text);
+    try {
+      final aiResponse = await _completeChat(message.text);
 
-    setState(() {
-      isAiTyping = false;
-    });
+      setState(() {
+        isAiTyping = false;
+      });
 
-    final aiMessage = types.TextMessage(
-      author: ai,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      text: aiResponse,
-    );
+      final aiMessage = types.TextMessage(
+        author: ai,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        text: aiResponse,
+      );
 
-    _addMessage(aiMessage);
+      _addMessage(aiMessage);
+    } catch (e) {
+      setState(() {
+        isAiTyping = false;
+      });
+
+      print('Error during AI response: $e');
+      // Handle error, e.g., show a user-friendly message in the chat
+    }
   }
 
   void _addMessage(types.Message message) {
