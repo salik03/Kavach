@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
     user = const types.User(id: 'user', firstName: 'You');
   }
 
-  Future<List<String>> _completeChat(String prompt) async {
+  Future<List> _completeChat(String prompt) async {
     final apiUrl = Uri.parse('https://1a9e-118-185-21-138.ngrok-free.app/chat');
 
     final headers = {'Content-Type': 'application/json'};
@@ -40,10 +40,9 @@ class _ChatPageState extends State<ChatPage> {
       );
 
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body) as List;
+        final responseData = jsonDecode(response.body);
         // Assuming the response is an array of strings
-        final List<String> responses = responseData.cast<String>();
-        return responses;
+        return responseData.values.toList();
       } else {
         print('API request failed: ${response.statusCode}');
         return ['Oops, something went wrong'];
@@ -79,7 +78,9 @@ class _ChatPageState extends State<ChatPage> {
         author: ai,
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        text: "testing",
+        text: aiResponse.isNotEmpty
+            ? aiResponse[0]['response'].toString()
+            : 'No response from AI',
       );
 
       _addMessage(aiMessage);
@@ -88,7 +89,7 @@ class _ChatPageState extends State<ChatPage> {
         isAiTyping = false;
       });
 
-      print('Error during AI response: $e');
+      print('Error during AI response=: $e');
       // Handle error, e.g., show a user-friendly message in the chat
     }
   }
