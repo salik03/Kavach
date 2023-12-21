@@ -16,6 +16,8 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
+            height: 170,
+            width: double.infinity,
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(22),
@@ -29,8 +31,7 @@ class HomeScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, bottom: 8, top: 110),
+                      padding: const EdgeInsets.only(left: 20, bottom: 8),
                       child: ElevatedButton(
                         onPressed: () {},
                         child: const Text("Chat now"),
@@ -66,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 children: List.generate(
                   6,
                   (index) => const Card(
-                      shape: Border(), child: Center(child: Text(""))),
+                      shape: Border(), child: Center(child: Text("test"))),
                 ),
               ),
             ),

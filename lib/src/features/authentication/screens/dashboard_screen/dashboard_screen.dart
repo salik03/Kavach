@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/icons.dart';
 import '../chatbot_screen/chatbot_screen.dart';
+import '../email_embedd/email_safe.dart';
 import '../extraction/apiintegration/callapi.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
 import '../language/language_screen.dart';
+
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -16,18 +18,18 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
-
+  
   set index(int index) => _selectedIndex = index;
 
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   // Add the SMSScreen widget to the list of widget options
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(), // Home Placeholder
     const PhonelogsScreenApi(),
     const SMSScreen(),
-    const ChatPage(), // Mails Placeholder
+    const WebViewExample(), // Mails Placeholder
   ];
 
   void _onItemTapped(int index) {
@@ -58,8 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onTap: _navigateToLanguageScreen,
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(Icons
-                  .language), // Replace 'Icons.language' with your desired icon
+              child: Icon(Icons.language), // Replace 'Icons.language' with your desired icon
             ),
           ),
         ],
@@ -99,7 +100,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               label: 'Messages',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.shield_lefthalf_fill),
+              icon: Icon(Icons.mail),
+              label: 'Mails',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(MyFlutterIcon.robot),
               label: 'Nischal',
             ),
           ],

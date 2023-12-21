@@ -26,5 +26,5 @@ void main() async {
     locale: const Locale('en', 'US'),
     theme: TAppTheme.lightTheme,
     home: initialScreen,
-  )); 
+  ));
 }
