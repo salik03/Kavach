@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../chatbot_screen/chatbot_screen.dart';
 import '../extraction/apiintegration/callapi.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
@@ -26,8 +24,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(), // Home Placeholder
     const PhonelogsScreenApi(),
-    const SMSScreen(),
-    const ChatPage(), // Mails Placeholder
+    const SMSScreen(), // Mails Placeholder
   ];
 
   void _onItemTapped(int index) {
@@ -97,10 +94,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.message_rounded),
               label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.shield_lefthalf_fill),
-              label: 'Nischal',
             ),
           ],
           currentIndex: _selectedIndex,
