@@ -81,7 +81,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/on_boarding_images/on-boarding-image.png
-    - assets/images/splashscreen.png
 
 
   uses-material-design: true
