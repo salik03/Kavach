@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kavach_2/src/features/authentication/screens/dashboard_screen/dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
 
@@ -20,10 +21,14 @@ class LanguageScreen extends StatelessWidget {
     {'name': 'తెలుగు', 'locale': const Locale('kn', 'IN')},
   ];
 
-  void _updateLanguage(BuildContext context, Locale locale) {
-    Get.back();
+  void _updateLanguage(BuildContext context, Locale locale) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selected_locale', locale.languageCode);
+
+    Get.off(() => const DashboardScreen());
     Get.updateLocale(locale);
   }
+
 
   @override
   Widget build(BuildContext context) {
