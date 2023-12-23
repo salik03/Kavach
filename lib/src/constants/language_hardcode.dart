@@ -5,6 +5,12 @@ class LocalString extends Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          'Spam calls identified': 'Spam calls identified',
+          'mails moved to spam': 'mails moved to spam',
+          'Time saved from spammers': 'Time saved from spammers',
+          'Unkown numbers identified': 'Unkown numbers identified',
+          'Verified callers identified': 'Verified callers identified',
+          'Spam mails identified': 'Spam mails identified',
           'no new messages':
               'no new messages to show\n please press refresh...',
           'Chat now': 'Chat now',
@@ -38,6 +44,12 @@ class LocalString extends Translations {
           'Create an Account': 'Create an Account'
         },
         'hi_IN': {
+          'Spam calls identified': 'स्पैम कॉल्स की पहचान की गई',
+          'mails moved to spam': 'मेल स्पैम में भेजे गए',
+          'Time saved from spammers': 'स्पैमर्स से बचाया गया समय',
+          'Unkown numbers identified': 'अज्ञात संख्याओं की पहचान की गई',
+          'Verified callers identified': 'सत्यापित कॉलर्स की पहचान की गई',
+          'Spam mails identified': 'स्पैम मेल की पहचान की गई',
           'no new messages': 'नए संदेश नहीं\n रिफ्रेश दबाएं...',
           'Chat now': 'अभी चैट करें',
           'Recents': 'हाल के',
@@ -73,6 +85,12 @@ class LocalString extends Translations {
           'Create an Account': 'खाता बनाएं'
         },
         'gu_IN': {
+          'Spam calls identified': 'સ્પામ કૉલ્સ ઓળખાયા',
+          'mails moved to spam': 'મેઇલ સ્પામ માં મૂવ કરવામાં આવી',
+          'Time saved from spammers': 'સ્પેમર્સથી સમય સાચવ્યો',
+          'Unkown numbers identified': 'અજ્ઞાત નંબરો ઓળખાયા',
+          'Verified callers identified': 'ચકાસેલ કૉલર્સ ઓળખાયા',
+          'Spam mails identified': 'સ્પામ મેઇલ્સ ઓળખાયા',
           'no new messages': 'કોઈ નવા સંદેશો નથી\n રિફ્રેશ દબાવો...',
           'Chat now': 'હવે ચેટ કરો',
           'Recents': 'તાજેતરના',
@@ -108,6 +126,12 @@ class LocalString extends Translations {
           'Create an Account': 'એક ખાતું બનાવો'
         },
         'kn_IN': {
+          'Spam calls identified': 'ಸ್ಪ್ಯಾಮ್ ಕಾಲ್ಸ್ ಗುರುತಿಸಲಾಗಿದೆ',
+          'mails moved to spam': 'ಮೇಲ್ಸ್ ಸ್ಪ್ಯಾಮ್ ಗೆ ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ',
+          'Time saved from spammers': 'ಸ್ಪ್ಯಾಮರ್ಸ್ ನಿಂದ ಸಮಯ ಉಳಿಸಲಾಗಿದೆ',
+          'Unkown numbers identified': 'ಅಪರಿಚಿತ ಸಂಖ್ಯೆಗಳು ಗುರುತಿಸಲಾಗಿದೆ',
+          'Verified callers identified': 'ಪರಿಶೀಲಿಸಲಾದ ಕಾಲರ್ಸ್ ಗುರುತಿಸಲಾಗಿದೆ',
+          'Spam mails identified': 'ಸ್ಪ್ಯಾಮ್ ಮೇಲ್ಸ್ ಗುರುತಿಸಲಾಗಿದೆ',
           'no new messages': 'ಹೊಸ ಸಂದೇಶಗಳಿಲ್ಲ\n ದಯವಿಟ್ಟು ರಿಫ್ರೆಶ್ ಒತ್ತಿ...',
           'Chat now': 'ಈಗ ಚಾಟ್ ಮಾಡಿ',
           'Recents': 'ಇತ್ತೀಚಿನದು',

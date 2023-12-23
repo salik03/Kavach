@@ -30,8 +30,7 @@ class HomeScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, bottom: 8, top: 110),
+                      padding: const EdgeInsets.only(left: 20, bottom: 8, top: 110),
                       child: ElevatedButton(
                         onPressed: () {},
                         child: Text("Chat now".tr),
@@ -60,15 +59,51 @@ class HomeScreen extends StatelessWidget {
               ),
               child: GridView.count(
                 crossAxisCount: 2,
-                shrinkWrap: true,
-                childAspectRatio: 2,
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.all(0),
-                children: List.generate(
-                  6,
-                  (index) => const Card(
-                      shape: Border(), child: Center(child: Text(""))),
-                ),
+                childAspectRatio: 1.5,
+                children: [
+                  AlertBoxes(
+                    alertText: 'Spam calls identified'.tr,
+                    icon: Icons.warning,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: Colors.red,
+                  ),
+                  AlertBoxes(
+                    alertText: 'Messages moved to spam'.tr,
+                    icon: Icons.do_disturb_on_rounded,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: ocher,
+                  ),
+                  AlertBoxes(
+                    alertText: 'Time saved from spammers'.tr,
+                    icon: Icons.timer_sharp,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: Colors.green,
+                  ),
+                  AlertBoxes(
+                    alertText: 'Unkown numbers identified'.tr,
+                    icon: Icons.search,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: Colors.blue,
+                  ),
+                  AlertBoxes(
+                    alertText: 'Verified callers identified'.tr,
+                    icon: Icons.person_search,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: iconColor,
+                  ),
+                  AlertBoxes(
+                    alertText: 'Spam mails identified'.tr,
+                    icon: Icons.mail_lock_sharp,
+                    alerts: 2,
+                    color: Colors.white,
+                    iconColor: iconColor,
+                  ),
+                ],
               ),
             ),
           ),
@@ -87,18 +122,24 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     AlertBoxes(
+                      color: cardColor,
                       icon: CupertinoIcons.phone_fill,
                       alertText: "Unresolved Phone Numbers".tr,
                       alerts: 2,
+                      iconColor: Colors.red,
                     ),
                     AlertBoxes(
+                      color: cardColor,
                       icon: CupertinoIcons.chat_bubble_fill,
                       alertText: "Unresolved messages".tr,
                       alerts: 42,
+                      iconColor: Colors.red,
                     ),
                     AlertBoxes(
+                      iconColor: Colors.red,
+                      color: cardColor,
                       icon: CupertinoIcons.mail_solid,
-                      alertText: "Unresolved Emails".tr,
+                      alertText: "Unresolved Emails ".tr,
                       alerts: 21,
                     )
                   ],
@@ -114,12 +155,16 @@ class AlertBoxes extends StatelessWidget {
   final IconData icon; // New required parameter for the icon
   final String alertText; // New required parameter for the alert text
   final int alerts;
+  final Color color;
+  final Color iconColor;
 
   const AlertBoxes(
       {Key? key,
+      required this.color,
       required this.icon,
       required this.alertText,
-      required this.alerts})
+      required this.alerts,
+      required this.iconColor})
       : super(key: key);
 
   @override
@@ -130,7 +175,7 @@ class AlertBoxes extends StatelessWidget {
         width: 130,
         height: 130,
         child: Card(
-          color: cardColor,
+          color: color,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -141,7 +186,7 @@ class AlertBoxes extends StatelessWidget {
                     child: Icon(
                       icon, // Use the provided icon
                       size: 50,
-                      color: Colors.red,
+                      color: iconColor,
                     ),
                   ),
                   Padding(
@@ -161,8 +206,7 @@ class AlertBoxes extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   alertText,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ),
             ],

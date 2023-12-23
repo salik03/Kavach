@@ -92,8 +92,16 @@ class _MessagesListView extends StatelessWidget {
           future: sendRequest(message.body!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                  child: Text('...')); // Placeholder for loading indicator
+              return const Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: CircularProgressIndicator(color: Colors.teal),
+                  ),
+                ],
+              );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {

@@ -17,8 +17,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   set index(int index) => _selectedIndex = index;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   // Add the SMSScreen widget to the list of widget options
   static final List<Widget> _widgetOptions = <Widget>[
