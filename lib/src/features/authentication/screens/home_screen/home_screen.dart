@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kavach_2/src/constants/colors.dart';
 import 'package:kavach_2/src/constants/image_strings.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                           const EdgeInsets.only(left: 20, bottom: 8, top: 110),
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Text("Chat now"),
+                        child: Text("Chat now".tr),
                       ),
                     ),
                   ),
@@ -41,11 +42,11 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
-              "Recents",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              "Recents".tr,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
           ),
           SizedBox(
@@ -71,33 +72,33 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              "Alerts",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              "Alerts".tr,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
           ),
-          const SizedBox(
+          SizedBox(
               height: 150,
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     AlertBoxes(
                       icon: CupertinoIcons.phone_fill,
-                      alertText: "Unresolved Phone Numbers",
+                      alertText: "Unresolved Phone Numbers".tr,
                       alerts: 2,
                     ),
                     AlertBoxes(
                       icon: CupertinoIcons.chat_bubble_fill,
-                      alertText: "Unresolved messages ",
+                      alertText: "Unresolved messages".tr,
                       alerts: 42,
                     ),
                     AlertBoxes(
                       icon: CupertinoIcons.mail_solid,
-                      alertText: "Unresolved Emails ",
+                      alertText: "Unresolved Emails".tr,
                       alerts: 21,
                     )
                   ],

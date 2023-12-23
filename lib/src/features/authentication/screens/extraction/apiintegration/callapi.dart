@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:call_log/call_log.dart';
@@ -24,7 +25,8 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
   }
 
   Future<Contact?> _getContactForNumber(String phoneNumber) async {
-    Iterable<Contact> contacts = await ContactsService.getContactsForPhone(phoneNumber);
+    Iterable<Contact> contacts =
+        await ContactsService.getContactsForPhone(phoneNumber);
     if (contacts.isNotEmpty) {
       return contacts.first;
     }
@@ -47,7 +49,7 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Call Logs'),
+        title: Text('Call Logs'.tr),
       ),
       body: ListView.builder(
         itemCount: callLogs.length,
@@ -71,8 +73,8 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
 
     if (callLog.timestamp != null) {
       formattedTimestamp = DateFormat.yMd().add_Hms().format(
-        DateTime.fromMillisecondsSinceEpoch(callLog.timestamp!),
-      );
+            DateTime.fromMillisecondsSinceEpoch(callLog.timestamp!),
+          );
     }
 
     showDialog(
@@ -155,7 +157,8 @@ class _PhonelogsScreenState extends State<PhonelogsScreenApi> {
 
         // Store the response in local storage using SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('call_log_response_${callLog.hashCode}', response);
+        await prefs.setString(
+            'call_log_response_${callLog.hashCode}', response);
         print('Response stored in local storage.');
       } catch (e) {
         print('Error sending call log data: $e');

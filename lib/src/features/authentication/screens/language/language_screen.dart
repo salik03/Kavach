@@ -29,7 +29,6 @@ class LanguageScreen extends StatelessWidget {
     Get.updateLocale(locale);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,9 +73,8 @@ class LanguageScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 18,
-                            fontWeight: selected
-                                ? FontWeight.bold
-                                : FontWeight.normal,
+                            fontWeight:
+                                selected ? FontWeight.bold : FontWeight.normal,
                           ),
                         ),
                       ),
@@ -89,21 +87,7 @@ class LanguageScreen extends StatelessWidget {
                   },
                   itemCount: locale.length,
                 ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 50,
-                  width: 250,
-                  child: ElevatedButton(
-                    onPressed: () => Get.to(const DashboardScreen()), // Fix navigation
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor,
-                    ),
-                    child: Text(
-                      'confirm'.tr,
-                      style: const TextStyle(color: Colors.white70),
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 8),
               ],
             ),
           ),

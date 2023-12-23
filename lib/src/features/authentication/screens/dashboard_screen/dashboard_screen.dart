@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../extraction/apiintegration/callapi.dart';
 import '../extraction/sms_extract.dart';
 import '../home_screen/home_screen.dart';
@@ -70,7 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
+        decoration:  const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
@@ -82,18 +82,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.grey,
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              icon: const Icon(Icons.home),
+              label: 'home'.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.call),
-              label: 'Calls',
+              icon: const Icon(Icons.call),
+              label: 'calls'.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.message_rounded),
-              label: 'Messages',
+              icon: const Icon(Icons.message_rounded),
+              label: 'messages'.tr,
             ),
           ],
           currentIndex: _selectedIndex,

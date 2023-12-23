@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +41,7 @@ class _MyAppState extends State<SMSScreen> {
                 )
               : Center(
                   child: Text(
-                    'No messages to show.\nTap the refresh button...',
+                    'no new messages'.tr,
                     style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
